@@ -4,6 +4,6 @@ export interface InterLoadingContext {
   loading: boolean
 }
 
-export interface InterProviderProps {
+export interface InterLoadingProps {
   children: ReactNode;
 }

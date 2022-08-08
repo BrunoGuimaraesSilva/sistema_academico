@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { createContext, useEffect, useState } from "react";
 import {
   InterLoadingContext,
-  InterProviderProps,
+  InterLoadingProps,
 } from "./loadingContext.interface";
 import axios, {
   AxiosError,
@@ -13,7 +13,7 @@ import axios, {
 
 export const LoadingContext = createContext({} as InterLoadingContext);
 
-export function LoadingProvider({ children }: InterProviderProps) {
+export function LoadingProvider({ children }: InterLoadingProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
