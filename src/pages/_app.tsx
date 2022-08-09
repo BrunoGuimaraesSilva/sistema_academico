@@ -13,8 +13,6 @@ const colors = {
 };
 
 const theme = extendTheme({ colors });
-
-// 3. Pass the `theme` prop to the `ChakraProvider`
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>

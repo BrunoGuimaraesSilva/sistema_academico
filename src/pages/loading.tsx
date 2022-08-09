@@ -9,7 +9,7 @@ export default function Loading() {
   
   return (
     <>
-      <Modal onClose={() => {}} isOpen={loading} isCentered>
+      <Modal onClose={():void => {}} isOpen={loading} isCentered>
         <ModalOverlay />
         <ModalContent
           alignItems={"center"}
