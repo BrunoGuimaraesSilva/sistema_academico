@@ -1,8 +1,14 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
-import { ClientProvider, LoadingProvider } from "../services";
+import {
+  ClientProvider,
+  LoadingProvider,
+  ScreenControlProvider,
+  StudantProvider,
+} from "../services";
 import Loading from "./loading";
+import { StudantProviderProps } from "./../services/studantContext.interface";
 
 const colors = {
   brand: {
@@ -19,7 +25,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LoadingProvider>
         <ClientProvider>
           <Loading />
-          <Component {...pageProps} />
+          <ScreenControlProvider>
+            <StudantProvider>
+              <Component {...pageProps} />
+            </StudantProvider>
+          </ScreenControlProvider>
         </ClientProvider>
       </LoadingProvider>
     </ChakraProvider>
