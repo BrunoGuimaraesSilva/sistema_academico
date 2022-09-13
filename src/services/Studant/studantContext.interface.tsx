@@ -6,7 +6,7 @@ export interface StudantProviderProps {
 
 export interface StudantContextProps {
     cep?: CepResponseType;
-    getCepData(dados: number): Promise<void>;
+    getCepData(dados?: string): Promise<void>;
 }
 
 export interface CepResponseType {

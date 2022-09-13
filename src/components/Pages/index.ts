@@ -1,2 +1,1 @@
-export * from './cadastroAluno'
-export * from './address'
+export * from './Studant'

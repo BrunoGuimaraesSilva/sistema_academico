@@ -11,27 +11,14 @@ import {
 import React from "react";
 import InputMask from "react-input-mask";
 import { MdOutlineLocationCity } from "react-icons/md";
-import { useForm } from "react-hook-form";
+import {useFormContext } from "react-hook-form";
+import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function PersonDataFragment() {
-  type FormValues = {
-    name: string;
-    phone: string;
-    email: string;
-    password: string;
-    cpf: string;
-  };
-
   const {
-    handleSubmit,
     register,
-    setValue,
-    getValues,
-    watch,
-    reset,
-    clearErrors,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>();
+    formState: { errors },
+  } = useFormContext<StudantRegisterFormValues>();
 
   
   return (

@@ -1,0 +1,5 @@
+export * from './studantRegister'
+export * from './studantRegister.interface'
+export * from './personAddress'
+export * from './financial'
+export * from './personData'

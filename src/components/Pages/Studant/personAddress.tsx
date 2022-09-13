@@ -15,37 +15,35 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
 import InputMask from "react-input-mask";
-import uf from "../../assets/uf.json";
+import uf from "../../../assets/uf.json";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
-import { useForm } from "react-hook-form";
-import { CepResponseType, StudantContext } from "../../services";
+import { useForm, useFormContext } from "react-hook-form";
+import { StudantContext } from "../../../services";
+import { StudantRegisterFormValues } from "./studantRegister.interface";
 
-export function AddressFragment() {
+export function PersonAddressFragment() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const { cep, getCepData } = useContext(StudantContext);
 
   const {
-    handleSubmit,
     register,
     setValue,
     getValues,
     watch,
-    reset,
-    clearErrors,
     formState: { errors },
-  } = useForm();
+  } = useFormContext<StudantRegisterFormValues>();
 
   useEffect(() => {
-    setValue("city", cep?.localidade ?? "", {
+    setValue("cityStudant", cep?.localidade ?? "", {
       shouldValidate: cep?.localidade ? true : false,
     });
-    setValue("neighborhood", cep?.bairro ?? "", {
+    setValue("neighborhoodStudant", cep?.bairro ?? "", {
       shouldValidate: cep?.bairro ? true : false,
     });
-    setValue("address", cep?.logradouro ?? "", {
+    setValue("addressStudant", cep?.logradouro ?? "", {
       shouldValidate: cep?.logradouro ? true : false,
     });
-    setValue("state", cep?.uf ?? "", {
+    setValue("stateStudant", cep?.uf ?? "", {
       shouldValidate: cep?.uf ? true : false,
     });
 
@@ -61,7 +59,7 @@ export function AddressFragment() {
   }, [cep]);
 
   useEffect(() => {
-    const value = getValues("cep");
+    const value = getValues("cepStudant");
     if (value) {
       if (value.indexOf("_") == -1) {
         setDisableButton(false);
@@ -71,12 +69,12 @@ export function AddressFragment() {
     }
   }, [watch()]);
 
-  console.log(errors)
+  console.log(errors);
   return (
     <React.Fragment>
       <Wrap mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={true}>
+          <FormControl isInvalid={!!errors.cepStudant }>
             <FormLabel>CEP</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -86,7 +84,7 @@ export function AddressFragment() {
                 as={InputMask}
                 placeholder="Seu CEP"
                 mask="99999-999"
-                {...register("cep", {
+                {...register("cepStudant", {
                   required: "Preencha o campo de CEP",
                   minLength: 9,
                 })}
@@ -96,7 +94,7 @@ export function AddressFragment() {
                   disabled={disableButton}
                   size="sm"
                   onClick={() => {
-                    getCepData(getValues("cep"));
+                    getCepData(getValues("cepStudant"));
                   }}
                 >
                   <CheckIcon color="green.500" />
@@ -104,13 +102,13 @@ export function AddressFragment() {
               </InputRightElement>
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.cep && errors.cep.message} */}
+              {errors.cepStudant && errors.cepStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={!!errors.cityStudant}>
             <FormLabel>Cidade</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -118,25 +116,25 @@ export function AddressFragment() {
               </InputLeftElement>
               <Input
                 placeholder="Seu Cidade"
-                {...register("city", {
+                {...register("cityStudant", {
                   required: "Preencha o campo de Cidade",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.city && errors.city.message} */}
+              {errors.cityStudant && errors.cityStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={!!errors.stateStudant}>
             <FormLabel>Estado</FormLabel>
             <InputGroup>
               <Select
                 id="country"
                 placeholder="Selecione seu estado"
-                {...register("state", {
+                {...register("stateStudant", {
                   required: "Selecione o seu Estado",
                 })}
               >
@@ -150,13 +148,13 @@ export function AddressFragment() {
               </Select>
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.state && errors.state.message} */}
+              {errors.stateStudant && errors.stateStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={!!errors.addressStudant}>
             <FormLabel>Endereço</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -164,19 +162,19 @@ export function AddressFragment() {
               </InputLeftElement>
               <Input
                 placeholder="Seu Endereço"
-                {...register("address", {
+                {...register("addressStudant", {
                   required: "Preencha o campo de Endereço",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.address && errors.address.message} */}
+              {errors.addressStudant && errors.addressStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={!!errors.neighborhoodStudant}>
             <FormLabel>Bairro</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -184,19 +182,19 @@ export function AddressFragment() {
               </InputLeftElement>
               <Input
                 placeholder="Seu Bairro"
-                {...register("neighborhood", {
+                {...register("neighborhoodStudant", {
                   required: "Preencha o campo de Bairro",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.neighborhood && errors.neighborhood.message} */}
+              {errors.neighborhoodStudant && errors.neighborhoodStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={!!errors.numberStudant}>
             <FormLabel>Numero da casa</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -204,13 +202,13 @@ export function AddressFragment() {
               </InputLeftElement>
               <Input
                 placeholder="Numero da casa"
-                {...register("number", {
+                {...register("numberStudant", {
                   required: "Preencha o campo de numero da casa",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.number && errors.number.message} */}
+              {errors.numberStudant && errors.numberStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>

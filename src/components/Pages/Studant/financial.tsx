@@ -20,17 +20,16 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
 import InputMask from "react-input-mask";
-import uf from "../../assets/uf.json";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
-import { useForm } from "react-hook-form";
-import { CepResponseType, StudantContext } from "../../services";
+import { useFormContext } from "react-hook-form";
+import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function FinancialFragment() {
 
   const {
     register,
     formState: { errors },
-  } = useForm();
+  } = useFormContext<StudantRegisterFormValues>();
 
   return (
     <React.Fragment>
@@ -38,7 +37,7 @@ export function FinancialFragment() {
       <Wrap mt={15} spacing={5}>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={true}>
+          <FormControl isInvalid={!!errors.cpfFinancial}>
             <FormLabel>CPF</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -48,20 +47,20 @@ export function FinancialFragment() {
                 as={InputMask}
                 placeholder="Seu CPF"
                 mask="999.999.999-99"
-                {...register("cpf", {
+                {...register("cpfFinancial", {
                   required: "Preencha o campo de CPF",
                   minLength: 11,
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.cep && errors.cep.message} */}
+              {errors.cpfFinancial && errors.cpfFinancial.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={!!errors.nameFinancial}>
             <FormLabel>Nome</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -69,13 +68,13 @@ export function FinancialFragment() {
               </InputLeftElement>
               <Input
                 placeholder="Seu Nome"
-                {...register("name", {
+                {...register("nameFinancial", {
                   required: "Preencha o campo de Nome",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {/* {errors.city && errors.city.message} */}
+              {errors.nameFinancial && errors.nameFinancial.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>

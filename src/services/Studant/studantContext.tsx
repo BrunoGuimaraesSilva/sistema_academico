@@ -23,7 +23,7 @@ export function StudantProvider({ children }: StudantProviderProps) {
   //   } catch (error) {}
   // }
 
-  async function getCepData(cep: number): Promise<void> {
+  async function getCepData(cep: string): Promise<void> {
     try {
       axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((res): void => {
         setCep(res.data);

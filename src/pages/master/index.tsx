@@ -6,7 +6,7 @@ import {
   FiSettings,
 } from "react-icons/fi";
 import { LinkItemProps } from "../../components";
-import { CadastroAluno } from "../../components/Pages";
+import { StudantRegister } from "../../components/Pages";
 import React, { useContext } from "react";
 import Sidebar from "../../components/Sidebar/sidebar";
 import { ScreenControlContext } from "../../services";
@@ -15,11 +15,11 @@ export default function Dashboard() {
   const { Screen } = useContext(ScreenControlContext);
 
   const LinkItems: Array<LinkItemProps> = [
-    { name: "Home", icon: FiHome, screen: <CadastroAluno /> },
-    { name: "Trending", icon: FiTrendingUp, screen: <CadastroAluno /> },
-    { name: "Explore", icon: FiCompass, screen: <CadastroAluno /> },
-    { name: "Favourites", icon: FiStar, screen: <CadastroAluno /> },
-    { name: "Settings", icon: FiSettings, screen: <CadastroAluno /> },
+    { name: "Home", icon: FiHome, screen: <StudantRegister /> },
+    { name: "Trending", icon: FiTrendingUp, screen: <StudantRegister /> },
+    { name: "Explore", icon: FiCompass, screen: <StudantRegister /> },
+    { name: "Favourites", icon: FiStar, screen: <StudantRegister /> },
+    { name: "Settings", icon: FiSettings, screen: <StudantRegister /> },
   ];
 
   return (

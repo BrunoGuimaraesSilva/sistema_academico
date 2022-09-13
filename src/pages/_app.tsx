@@ -5,10 +5,9 @@ import {
   ClientProvider,
   LoadingProvider,
   ScreenControlProvider,
-  StudantProvider,
+  StudantProvider
 } from "../services";
 import Loading from "./loading";
-import { StudantProviderProps } from "./../services/studantContext.interface";
 
 const colors = {
   brand: {
