@@ -14,7 +14,6 @@ export function StudantProvider({ children }: StudantProviderProps) {
   const urlApi: String = "https://pesquisa-satisfacao-api.herokuapp.com/api";
   const router = useRouter();
 
-
   // async function getProfile(): Promise<void> {
   //   try {
   //     axios.get(`${urlApi}/perfil`, config).then((res): void => {
@@ -24,19 +23,17 @@ export function StudantProvider({ children }: StudantProviderProps) {
   // }
 
   async function getCepData(cep: string): Promise<void> {
-    try {
-      axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((res): void => {
-        setCep(res.data);
-      });
-    } catch (error) {}
+    axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((res): void => {
+      setCep(res.data);
+    });
   }
-
 
   return (
     <StudantContext.Provider
       value={{
         getCepData,
-        cep
+        cep,
       }}
     >
       {children}

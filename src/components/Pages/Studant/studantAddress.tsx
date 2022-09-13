@@ -33,30 +33,33 @@ export function PersonAddressFragment() {
     formState: { errors },
   } = useFormContext<StudantRegisterFormValues>();
 
-  useEffect(() => {
-    setValue("cityStudant", cep?.localidade ?? "", {
-      shouldValidate: cep?.localidade ? true : false,
-    });
-    setValue("neighborhoodStudant", cep?.bairro ?? "", {
-      shouldValidate: cep?.bairro ? true : false,
-    });
-    setValue("addressStudant", cep?.logradouro ?? "", {
-      shouldValidate: cep?.logradouro ? true : false,
-    });
-    setValue("stateStudant", cep?.uf ?? "", {
-      shouldValidate: cep?.uf ? true : false,
-    });
+  async function handleClick() {
+    await getCepData(getValues("cepStudant"))
+      .then(() => {
+        setValue("cityStudant", cep?.localidade ?? "", {
+          shouldValidate: cep?.localidade ? true : false,
+        });
+        setValue("neighborhoodStudant", cep?.bairro ?? "", {
+          shouldValidate: cep?.bairro ? true : false,
+        });
+        setValue("addressStudant", cep?.logradouro ?? "", {
+          shouldValidate: cep?.logradouro ? true : false,
+        });
+        setValue("stateStudant", cep?.uf ?? "", {
+          shouldValidate: cep?.uf ? true : false,
+        });
 
-    if (!!cep?.erro) {
-      Toast({
-        title: "Cep Inválido",
-        description: "Digite um cep valido!",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  }, [cep]);
+        if(cep?.erro == 'true'){
+          Toast({
+            title: "Cep Inválido",
+            description: "Digite um cep valido!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      })
+  }
 
   useEffect(() => {
     const value = getValues("cepStudant");
@@ -72,9 +75,9 @@ export function PersonAddressFragment() {
   console.log(errors);
   return (
     <React.Fragment>
-      <Wrap mt={15} spacing={5}>
+      <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.cepStudant }>
+          <FormControl isInvalid={!!errors.cepStudant}>
             <FormLabel>CEP</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -94,7 +97,7 @@ export function PersonAddressFragment() {
                   disabled={disableButton}
                   size="sm"
                   onClick={() => {
-                    getCepData(getValues("cepStudant"));
+                    handleClick();
                   }}
                 >
                   <CheckIcon color="green.500" />

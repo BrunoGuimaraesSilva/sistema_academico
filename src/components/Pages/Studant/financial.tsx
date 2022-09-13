@@ -33,9 +33,8 @@ export function FinancialFragment() {
 
   return (
     <React.Fragment>
-      
-      <Wrap mt={15} spacing={5}>
 
+      <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.cpfFinancial}>
             <FormLabel>CPF</FormLabel>

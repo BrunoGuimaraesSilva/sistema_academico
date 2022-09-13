@@ -44,7 +44,7 @@ export default function Sidebar({
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
+        display={{ base: "none", lg: "block" }}
         LinkItem={linkItems}
       />
       <Drawer
@@ -60,8 +60,8 @@ export default function Sidebar({
           <SidebarContent onClose={onClose} LinkItem={linkItems} />
         </DrawerContent>
       </Drawer>
-      <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: '15%' }} p="4">
+      <MobileNav display={{ base: "flex", lg: "none" }} onOpen={onOpen} />
+      <Box ml={{ base: 0, lg: '15%' }} p="4">
         {children}
       </Box>
     </Box>
@@ -75,7 +75,7 @@ const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: '15%' }}
+      w={{ base: "full", lg: '15%' }}
       pos="fixed"
       h="full"
       {...rest}
@@ -86,7 +86,7 @@ const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
             <Image alt="logo" src={useColorModeValue(logo_black, logo)} />
           </Center>
         </Flex>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <CloseButton display={{ base: "flex", lg: "none" }} onClick={onClose} />
       </Flex>
       <SimpleGrid columns={1}>
         {LinkItem.map((link) => (
@@ -96,7 +96,7 @@ const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
         ))}
       </SimpleGrid>
       <Box
-        w={{ base: "full",  md: '15%' }}
+        w={{ base: "full",  lg: '15%' }}
         bg={useColorModeValue("white", "gray.600")}
         position={"fixed"}
         left={0}
@@ -118,8 +118,8 @@ const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   return (
     <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 24 }}
+      ml={{ base: 0, lg: 60 }}
+      px={{ base: 4, lg: 24 }}
       height="20"
       alignItems="center"
       bg={useColorModeValue("white", "gray.900")}

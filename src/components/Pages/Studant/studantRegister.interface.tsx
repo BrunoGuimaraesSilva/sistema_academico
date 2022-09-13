@@ -12,4 +12,10 @@ export type StudantRegisterFormValues = {
   numberStudant?: string;
   cpfFinancial?: string;
   nameFinancial?: string;
+  cepFinancial?: string;
+  cityFinancial?: string;
+  neighborhoodFinancial?: string;
+  addressFinancial?: string;
+  stateFinancial?: string;
+  numberFinancial?: string;
 };
