@@ -32,7 +32,7 @@ export function AddressFragment() {
     watch,
     reset,
     clearErrors,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
   useEffect(() => {
@@ -71,11 +71,12 @@ export function AddressFragment() {
     }
   }, [watch()]);
 
+  console.log(errors)
   return (
     <React.Fragment>
-      <Wrap spacing={5}>
+      <Wrap mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={false}>
+          <FormControl isInvalid={true}>
             <FormLabel>CEP</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -190,6 +191,26 @@ export function AddressFragment() {
             </InputGroup>
             <FormErrorMessage>
               {/* {errors.neighborhood && errors.neighborhood.message} */}
+            </FormErrorMessage>
+          </FormControl>
+        </WrapItem>
+
+        <WrapItem w={"250px"} h={"100px"}>
+          <FormControl isInvalid={false}>
+            <FormLabel>Numero da casa</FormLabel>
+            <InputGroup>
+              <InputLeftElement>
+                <MdOutlineHouse />
+              </InputLeftElement>
+              <Input
+                placeholder="Numero da casa"
+                {...register("number", {
+                  required: "Preencha o campo de numero da casa",
+                })}
+              />
+            </InputGroup>
+            <FormErrorMessage>
+              {/* {errors.number && errors.number.message} */}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
