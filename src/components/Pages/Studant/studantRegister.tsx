@@ -26,6 +26,7 @@ import CustomDivider from "../../CustomDivider";
 import { PersonDataFragment } from "./studantData";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 import { FinancialAddressFragment } from "./financialAddress";
+import { StudantProvider } from "../../../services";
 
 export function StudantRegister() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
@@ -37,50 +38,52 @@ export function StudantRegister() {
   } = methods;
 
   async function onSubmit(data: any): Promise<void> {
-    console.log(JSON.stringify( data))
+    console.log(JSON.stringify(data));
   }
 
   return (
-    <React.Fragment>
-      <Container padding={15} w={"100%"}>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <CustomDivider>
-              <Text>Dados do Aluno</Text>
-            </CustomDivider>
-            <PersonDataFragment />
-            <CustomDivider>
-              <Text>Endereço do Aluno</Text>
-            </CustomDivider>
-            <PersonAddressFragment />
-            <CustomDivider>
-              <Text>Financeiro</Text>
-            </CustomDivider>
-            <FinancialFragment />
-            <CustomDivider>
-              <Text>Endereço Financeiro</Text>
-            </CustomDivider>
-            <FinancialAddressFragment />
+    <StudantProvider>
+      <React.Fragment>
+        <Container padding={15} w={"100%"}>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <CustomDivider>
+                <Text>Dados do Aluno</Text>
+              </CustomDivider>
+              <PersonDataFragment />
+              <CustomDivider>
+                <Text>Endereço do Aluno</Text>
+              </CustomDivider>
+              <PersonAddressFragment />
+              <CustomDivider>
+                <Text>Financeiro</Text>
+              </CustomDivider>
+              <FinancialFragment />
+              <CustomDivider>
+                <Text>Endereço Financeiro</Text>
+              </CustomDivider>
+              <FinancialAddressFragment />
 
-            <Box m={10}>
-              <Button
-                colorScheme="blue"
-                bg="blue.400"
-                color="white"
-                isLoading={isSubmitting}
-                type="submit"
-                w={"full"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-              >
-                Enviar
-              </Button>
-            </Box>
-          </form>
-        </FormProvider>
-      </Container>
-    </React.Fragment>
+              <Box m={10}>
+                <Button
+                  colorScheme="blue"
+                  bg="blue.400"
+                  color="white"
+                  isLoading={isSubmitting}
+                  type="submit"
+                  w={"full"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Enviar
+                </Button>
+              </Box>
+            </form>
+          </FormProvider>
+        </Container>
+      </React.Fragment>
+    </StudantProvider>
   );
 }
 

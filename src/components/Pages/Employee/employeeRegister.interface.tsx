@@ -1,0 +1,21 @@
+export type EmployeeRegisterFormValues = {
+  name?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
+  cpf?: string;
+  cepStudant?: string;
+  cityStudant?: string;
+  neighborhoodStudant?: string;
+  addressStudant?: string;
+  stateStudant?: string;
+  numberStudant?: string;
+  cpfFinancial?: string;
+  nameFinancial?: string;
+  cepFinancial?: string;
+  cityFinancial?: string;
+  neighborhoodFinancial?: string;
+  addressFinancial?: string;
+  stateFinancial?: string;
+  numberFinancial?: string;
+};

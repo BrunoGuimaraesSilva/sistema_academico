@@ -25,9 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ClientProvider>
           <Loading />
           <ScreenControlProvider>
-            <StudantProvider>
               <Component {...pageProps} />
-            </StudantProvider>
           </ScreenControlProvider>
         </ClientProvider>
       </LoadingProvider>
