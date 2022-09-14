@@ -3,7 +3,7 @@ import {
   Center,
   Divider,
   Flex,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
 
 interface DividerProps {
@@ -11,6 +11,9 @@ interface DividerProps {
 }
 
 const CustomDivider: React.FC<DividerProps> = ({ children }) => {
+
+  const color = useColorModeValue("gray.200", "gray.700");
+
   return children ? (
     <Box py={10}>
       <Flex
@@ -18,14 +21,14 @@ const CustomDivider: React.FC<DividerProps> = ({ children }) => {
         _before={{
           content: '""',
           borderBottom: "1px solid",
-          borderColor: useColorModeValue("gray.200", "gray.700"),
+          borderColor: color,
           flexGrow: 1,
           mr: 8,
         }}
         _after={{
           content: '""',
           borderBottom: "1px solid",
-          borderColor: useColorModeValue("gray.200", "gray.700"),
+          borderColor: color,
           flexGrow: 1,
           ml: 8,
         }}

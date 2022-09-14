@@ -14,6 +14,25 @@ export const NavItem: React.FC<NavItemProps> = ({
   children,
   ...rest
 }: NavItemProps) => {
+  const colorHover = useColorModeValue(
+    {
+      bg: "black",
+      color: "white",
+    },
+    {
+      bg: "white",
+      color: "black",
+    }
+  );
+
+  const colorIcon = useColorModeValue(
+    {
+      color: "white",
+    },
+    {
+      color: "black",
+    }
+  );
   return (
     <Link
       href="#"
@@ -29,32 +48,11 @@ export const NavItem: React.FC<NavItemProps> = ({
         cursor="pointer"
         bg={useColorModeValue("white", "gray.600")}
         margin={3}
-        _hover={useColorModeValue(
-          {
-            bg: "black",
-            color: "white",
-          },
-          {
-            bg: "white",
-            color: "black",
-          }
-        )}
+        _hover={colorHover}
         {...rest}
       >
         {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={useColorModeValue(
-              {
-                color: "white",
-              },
-              {
-                color: "black",
-              }
-            )}
-            as={icon}
-          />
+          <Icon mr="4" fontSize="16" _groupHover={colorIcon} as={icon} />
         )}
         {children}
       </Flex>
