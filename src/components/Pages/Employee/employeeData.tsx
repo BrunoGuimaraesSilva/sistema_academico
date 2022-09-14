@@ -7,18 +7,18 @@ import {
   InputLeftElement,
   Select,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import InputMask from "react-input-mask";
+import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
-import {useFormContext } from "react-hook-form";
-import { EmployeeRegisterFormValues } from "./employeeRegister.interface";
+import InputMask from "react-input-mask";
 import { EmployeeContext } from './../../../services/Employee/employeeContext';
+import { EmployeeRegisterFormValues } from "./employeeRegister.interface";
 
 export function EmployeeDataFragment() {
 
-  const { getProfileData, profile } = useContext(EmployeeContext);
+  const { profile } = useContext(EmployeeContext);
 
   const {
     register,
@@ -31,27 +31,27 @@ export function EmployeeDataFragment() {
       <Wrap justify='center' mt={15} spacing={5}>
 
       <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.stateStudant}>
-            <FormLabel>Estado</FormLabel>
+          <FormControl isInvalid={!!errors.profile}>
+            <FormLabel>Perfil</FormLabel>
             <InputGroup>
               <Select
-                id="country"
-                placeholder="Selecione seu estado"
-                {...register("stateStudant", {
-                  required: "Selecione o seu Estado",
+                id="id"
+                placeholder="Selecione seu perfil"
+                {...register("profile", {
+                  required: "Selecione o seu perfil",
                 })}
               >
-                {uf.map((data) => {
+                {profile?.map((data) => {
                   return (
-                    <option key={data.id} id={data.id} value={data.initials}>
-                      {data.name}
+                    <option key={data.id} id={data.id} value={data.id}>
+                      {data.profile}
                     </option>
                   );
                 })}
               </Select>
             </InputGroup>
             <FormErrorMessage>
-              {errors.stateStudant && errors.stateStudant.message}
+              {errors.profile && errors.profile.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>

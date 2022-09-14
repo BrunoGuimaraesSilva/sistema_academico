@@ -1,32 +1,18 @@
 import {
   Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  SimpleGrid,
-  Switch,
-  Text,
-  Textarea,
-  Wrap,
-  WrapItem,
+  Button, Text
 } from "@chakra-ui/react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { BsPerson } from "react-icons/bs";
+import { FormProvider, useForm } from "react-hook-form";
 
-import { useContext, useEffect, useState } from "react";
-import React from "react";
-import { PersonAddressFragment } from "./studantAddress";
+import React, { useState } from "react";
+import { StudantProvider } from "../../../services";
 import { Container } from "../../Container";
-import { FinancialFragment } from "./financial";
 import CustomDivider from "../../CustomDivider";
+import { FinancialFragment } from "./financial";
+import { FinancialAddressFragment } from "./financialAddress";
+import { PersonAddressFragment } from "./studantAddress";
 import { PersonDataFragment } from "./studantData";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
-import { FinancialAddressFragment } from "./financialAddress";
-import { StudantProvider } from "../../../services";
 
 export function StudantRegister() {
   const [disableButton, setDisableButton] = useState<boolean>(true);

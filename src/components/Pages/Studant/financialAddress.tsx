@@ -1,3 +1,4 @@
+import { CheckIcon } from "@chakra-ui/icons";
 import {
   Button,
   FormControl,
@@ -10,14 +11,13 @@ import {
   Select,
   Toast,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { CheckIcon } from "@chakra-ui/icons";
-import InputMask from "react-input-mask";
 import uf from "../../../assets/uf.json";
+import React, { useContext, useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
-import { useForm, useFormContext } from "react-hook-form";
+import InputMask from "react-input-mask";
 import { StudantContext } from "../../../services";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 

@@ -20,6 +20,7 @@ import {
   import CustomDivider from "../../CustomDivider";
   import { EmployeeDataFragment } from './employeeData';
 import { EmployeeContext, EmployeeProvider } from "../../../services";
+import { EmployeeAddressFragment } from './employeeAddress';
 
   export function EmployeeRegister() {
     const methods = useForm();
@@ -45,15 +46,9 @@ import { EmployeeContext, EmployeeProvider } from "../../../services";
               </CustomDivider>
               <EmployeeDataFragment />
               <CustomDivider>
-                <Text>Endereço do Aluno</Text>
+                <Text>Endereço do Funcionario</Text>
               </CustomDivider>
-              <CustomDivider>
-                <Text>Financeiro</Text>
-              </CustomDivider>
-              <CustomDivider>
-                <Text>Endereço Financeiro</Text>
-              </CustomDivider>
-  
+              <EmployeeAddressFragment />  
               <Box m={10}>
                 <Button
                   colorScheme="blue"

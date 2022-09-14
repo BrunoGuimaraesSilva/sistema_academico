@@ -1,16 +1,17 @@
 import axios from "axios";
-import { createContext, useState } from "react";
 import { parseCookies } from "nookies";
+import { createContext, useEffect, useState } from "react";
 import {
-  ProfileResponseType,
+  CepResponseEmployeeType,
   EmployeeContextProps,
-  EmployeeProviderProps,
+  EmployeeProviderProps, ProfileResponseType
 } from "./";
 
 export const EmployeeContext = createContext({} as EmployeeContextProps);
 
 export function EmployeeProvider({ children }: EmployeeProviderProps) {
   const [profile, setProfile] = useState<ProfileResponseType[]>();
+  const [cep, setCep] = useState<CepResponseEmployeeType>();
   const urlApi: String = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const cookies = parseCookies();
   const token = cookies.token;
@@ -18,17 +19,30 @@ export function EmployeeProvider({ children }: EmployeeProviderProps) {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  async function getProfileData(): Promise<void> {
-    axios.get(urlApi + `/profile`, config).then((res): void => {
-      setProfile(res.data);
+
+  useEffect(() => {
+    if(!profile){
+      axios.get(urlApi + `/profile`, config).then((res): void => {
+        setProfile(res.data);
+      });
+    }
+ 
+  }, []);
+
+  async function getCepData(cep: string): Promise<void> {
+    axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((res): void => {
+      setCep(res.data);
     });
   }
+
 
   return (
     <EmployeeContext.Provider
       value={{
-        getProfileData,
         profile,
+        getCepData,
+        cep
       }}
     >
       {children}
