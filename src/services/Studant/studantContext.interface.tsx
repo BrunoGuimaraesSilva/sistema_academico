@@ -1,24 +1,16 @@
+import { StudantRegisterFormValues } from "components";
 import { ReactNode } from "react";
+import { CepType, StudantType } from "./inputs";
 
 export interface StudantProviderProps {
   children: ReactNode;
 }
 
 export interface StudantContextProps {
-    cep?: CepResponseType;
-    getCepData(dados?: string): Promise<void>;
+  cep?: CepType;
+  getCepData(dados?: string): Promise<void>;
+  saveStudantRegister(data: StudantRegisterFormValues): Promise<void>
+  getAllStudants(): Promise<void>
+  allStudants?: StudantType[]
 }
 
-export interface CepResponseType {
-  cep: string;
-  logradouro: string;
-  complemento: string;
-  bairro: string;
-  localidade: string;
-  uf: string;
-  ibge: string;
-  gia: string;
-  ddd: string;
-  siafi: string;
-  erro?: string;
-}

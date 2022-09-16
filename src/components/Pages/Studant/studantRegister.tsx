@@ -1,10 +1,7 @@
-import {
-  Box,
-  Button, Text
-} from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StudantProvider } from "../../../services";
 import { Container } from "../../Container";
 import CustomDivider from "../../CustomDivider";
@@ -13,18 +10,20 @@ import { FinancialAddressFragment } from "./financialAddress";
 import { PersonAddressFragment } from "./studantAddress";
 import { PersonDataFragment } from "./studantData";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
+import { PersonalDataFragment } from "./studantPersonalData";
+import { StudantContext } from './../../../services';
 
 export function StudantRegister() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const methods = useForm<StudantRegisterFormValues>();
-
+  const { saveStudantRegister } = useContext(StudantContext);
   const {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
   async function onSubmit(data: any): Promise<void> {
-    console.log(JSON.stringify(data));
+    saveStudantRegister(data)
   }
 
   return (
@@ -37,6 +36,10 @@ export function StudantRegister() {
                 <Text>Dados do Aluno</Text>
               </CustomDivider>
               <PersonDataFragment />
+              <CustomDivider>
+                <Text>Dados Pessoais do Aluno</Text>
+              </CustomDivider>
+              <PersonalDataFragment />
               <CustomDivider>
                 <Text>Endereço do Aluno</Text>
               </CustomDivider>

@@ -30,6 +30,7 @@ import { GIconButton } from "../Button";
 import { BsMoon, BsMoonStars, BsSun } from "react-icons/bs";
 import { PersonFooter } from "./personFooter";
 import { ScreenControlContext } from "../../services";
+import { useRouter } from 'next/router';
 
 export default function Sidebar({
   children,
@@ -69,7 +70,7 @@ export default function Sidebar({
 }
 
 const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
-  const { setScreenState } = useContext(ScreenControlContext);
+  const router = useRouter()
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -90,7 +91,7 @@ const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
       </Flex>
       <SimpleGrid columns={1}>
         {LinkItem.map((link) => (
-          <NavItem onClick={(data)=>{setScreenState(link.screen)}} key={link.name} icon={link.icon}>
+          <NavItem onClick={(data)=>{router.push(link.route)}} key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
         ))}

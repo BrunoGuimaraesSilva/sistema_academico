@@ -5,7 +5,7 @@ import { IconType } from "react-icons";
 export interface LinkItemProps {
   name: string;
   icon: IconType;
-  screen: JSX.Element
+  route: string;
 }
 
 export interface SidebarProps extends BoxProps {

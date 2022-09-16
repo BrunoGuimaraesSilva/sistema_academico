@@ -1,39 +1,56 @@
 import axios from "axios";
-import { useRouter } from "next/router";
-import { createContext, useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
-import { useToast } from "@chakra-ui/react";
-import { CepResponseType, StudantContextProps, StudantProviderProps } from "./";
+import { StudantRegisterFormValues } from "components";
+import { parseCookies } from "nookies";
+import { createContext, useState } from "react";
+import { StudantContextProps, StudantProviderProps } from "./";
+import { CepInput, CepType, converterToCreateUser, StudantInput, StudantType } from "./inputs";
 
 export const StudantContext = createContext({} as StudantContextProps);
 
 export function StudantProvider({ children }: StudantProviderProps) {
-  const toast = useToast();
-  const [cep, setCep] = useState<CepResponseType>();
-  //const [perfil, setPerfil] = useState<Array<PerfilResponseType>>();
-  const urlApi: String = "https://pesquisa-satisfacao-api.herokuapp.com/api";
-  const router = useRouter();
+  const urlApi: String = "https://site-lvhq52xtpa-uc.a.run.app/api";
+  const cookies = parseCookies();
+  const token = cookies.token;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const [allStudants, setAllStudants] = useState<StudantType[]>();
+  const [cep, setCep] = useState<CepType>();
 
-  // async function getProfile(): Promise<void> {
-  //   try {
-  //     axios.get(`${urlApi}/perfil`, config).then((res): void => {
-  //       setPerfil(res.data);
-  //     });
-  //   } catch (error) {}
-  // }
+  async function getAllStudants(): Promise<void> {
+    try {
+      axios.get(`${urlApi}/student`, config).then((res): void => {
+        setAllStudants(StudantInput(res.data));
+      });
+    } catch (error) { }
+  }
+
+  async function saveStudantRegister(data: StudantRegisterFormValues): Promise<void> {
+    try {
+      const dataToSend = converterToCreateUser(data)
+      console.log(dataToSend)
+      axios.post(`${urlApi}/perfil`, dataToSend, config).then((res): void => {
+
+      });
+    } catch (error) { }
+  }
 
   async function getCepData(cep: string): Promise<void> {
     axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-    .then((res): void => {
-      setCep(res.data);
-    });
+      .then((res): void => {
+        const cepData = CepInput(res.data)
+        setCep(cepData);
+      });
   }
 
   return (
     <StudantContext.Provider
       value={{
         getCepData,
-        cep,
+        saveStudantRegister,
+        getAllStudants,
+        allStudants,
+        cep
       }}
     >
       {children}

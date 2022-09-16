@@ -36,17 +36,17 @@ export function FinancialAddressFragment() {
   async function handleClick() {
     await getCepData(getValues("cepFinancial"))
       .then(() => {
-        setValue("cityFinancial", cep?.localidade ?? "", {
-          shouldValidate: cep?.localidade ? true : false,
+        setValue("cityFinancial", cep?.city ?? "", {
+          shouldValidate: cep?.city ? true : false,
         });
-        setValue("neighborhoodFinancial", cep?.bairro ?? "", {
-          shouldValidate: cep?.bairro ? true : false,
+        setValue("neighborhoodFinancial", cep?.neighborhood ?? "", {
+          shouldValidate: cep?.neighborhood ? true : false,
         });
-        setValue("addressFinancial", cep?.logradouro ?? "", {
-          shouldValidate: cep?.logradouro ? true : false,
+        setValue("addressFinancial", cep?.address ?? "", {
+          shouldValidate: cep?.address ? true : false,
         });
-        setValue("stateFinancial", cep?.uf ?? "", {
-          shouldValidate: cep?.uf ? true : false,
+        setValue("stateFinancial", cep?.state ?? "", {
+          shouldValidate: cep?.state ? true : false,
         });
 
         if(cep?.erro == 'true'){
@@ -75,7 +75,6 @@ export function FinancialAddressFragment() {
     }
   }, [watch()]);
 
-  console.log(errors);
   return (
     <React.Fragment>
       <Wrap justify='center' mt={15} spacing={5}>

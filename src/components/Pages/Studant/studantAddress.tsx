@@ -36,20 +36,20 @@ export function PersonAddressFragment() {
   async function handleClick() {
     await getCepData(getValues("cepStudant"))
       .then(() => {
-        setValue("cityStudant", cep?.localidade ?? "", {
-          shouldValidate: cep?.localidade ? true : false,
+        setValue("cityStudant", cep?.city ?? "", {
+          shouldValidate: cep?.city ? true : false,
         });
-        setValue("neighborhoodStudant", cep?.bairro ?? "", {
-          shouldValidate: cep?.bairro ? true : false,
+        setValue("neighborhoodStudant", cep?.neighborhood ?? "", {
+          shouldValidate: cep?.neighborhood ? true : false,
         });
-        setValue("addressStudant", cep?.logradouro ?? "", {
-          shouldValidate: cep?.logradouro ? true : false,
+        setValue("addressStudant", cep?.address ?? "", {
+          shouldValidate: cep?.address ? true : false,
         });
-        setValue("stateStudant", cep?.uf ?? "", {
-          shouldValidate: cep?.uf ? true : false,
+        setValue("stateStudant", cep?.state ?? "", {
+          shouldValidate: cep?.state ? true : false,
         });
 
-        if(cep?.erro == 'true'){
+        if (cep?.erro == 'true') {
           Toast({
             title: "Cep Inválido",
             description: "Digite um cep valido!",
@@ -72,7 +72,6 @@ export function PersonAddressFragment() {
     }
   }, [watch()]);
 
-  console.log(errors);
   return (
     <React.Fragment>
       <Wrap justify='center' mt={15} spacing={5}>

@@ -8,7 +8,7 @@ import {
   StudantProvider
 } from "../services";
 import Loading from "./loading";
-
+import 'react-datepicker/dist/react-datepicker.css';
 const colors = {
   brand: {
     900: "#1a365d",
@@ -23,10 +23,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <LoadingProvider>
         <ClientProvider>
+        <StudantProvider>
+
           <Loading />
           <ScreenControlProvider>
               <Component {...pageProps} />
           </ScreenControlProvider>
+        </StudantProvider>
         </ClientProvider>
       </LoadingProvider>
     </ChakraProvider>
