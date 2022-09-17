@@ -13,7 +13,7 @@ import {
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
@@ -23,7 +23,7 @@ import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function PersonAddressFragment() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const { cep, getCepData } = useContext(StudantContext);
+  const { getCepData } = useContext(StudantContext);
 
   const {
     register,
@@ -33,23 +33,23 @@ export function PersonAddressFragment() {
     formState: { errors },
   } = useFormContext<StudantRegisterFormValues>();
 
-  async function handleClick() {
+  async function handleClickCepButton() {
     await getCepData(getValues("cepStudant"))
-      .then(() => {
-        setValue("cityStudant", cep?.city ?? "", {
-          shouldValidate: cep?.city ? true : false,
+      .then((value) => {
+        setValue("cityStudant", value?.city ?? "", {
+          shouldValidate: value?.city ? true : false,
         });
-        setValue("neighborhoodStudant", cep?.neighborhood ?? "", {
-          shouldValidate: cep?.neighborhood ? true : false,
+        setValue("neighborhoodStudant", value?.neighborhood ?? "", {
+          shouldValidate: value?.neighborhood ? true : false,
         });
-        setValue("addressStudant", cep?.address ?? "", {
-          shouldValidate: cep?.address ? true : false,
+        setValue("addressStudant", value?.address ?? "", {
+          shouldValidate: value?.address ? true : false,
         });
-        setValue("stateStudant", cep?.state ?? "", {
-          shouldValidate: cep?.state ? true : false,
+        setValue("stateStudant", value?.state ?? "", {
+          shouldValidate: value?.state ? true : false,
         });
 
-        if (cep?.erro == 'true') {
+        if (value?.erro == 'true') {
           Toast({
             title: "Cep Inválido",
             description: "Digite um cep valido!",
@@ -73,7 +73,7 @@ export function PersonAddressFragment() {
   }, [watch()]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.cepStudant}>
@@ -96,7 +96,7 @@ export function PersonAddressFragment() {
                   disabled={disableButton}
                   size="sm"
                   onClick={() => {
-                    handleClick();
+                    handleClickCepButton();
                   }}
                 >
                   <CheckIcon color="green.500" />
@@ -215,6 +215,6 @@ export function PersonAddressFragment() {
           </FormControl>
         </WrapItem>
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }

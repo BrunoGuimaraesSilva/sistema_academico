@@ -9,14 +9,14 @@ import {
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
 import { EmployeeContext } from './../../../services/Employee/employeeContext';
 import { EmployeeRegisterFormValues } from "./employeeRegister.interface";
 
-export function EmployeeDataFragment() {
+export function EmployeeDataFragment(): JSX.Element {
 
   const { profile } = useContext(EmployeeContext);
 
@@ -27,7 +27,7 @@ export function EmployeeDataFragment() {
 
   
   return (
-    <React.Fragment>
+    <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
 
       <WrapItem w={"250px"} h={"100px"}>
@@ -41,7 +41,7 @@ export function EmployeeDataFragment() {
                   required: "Selecione o seu perfil",
                 })}
               >
-                {profile?.map((data) => {
+                {profile?.map((data): JSX.Element => {
                   return (
                     <option key={data.id} id={data.id} value={data.id}>
                       {data.profile}
@@ -167,6 +167,6 @@ export function EmployeeDataFragment() {
           </FormControl>
         </WrapItem>
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }

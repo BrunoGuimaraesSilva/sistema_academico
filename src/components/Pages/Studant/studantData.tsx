@@ -6,12 +6,12 @@ import {
   InputGroup,
   InputLeftElement,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/react";
-import React from "react";
-import InputMask from "react-input-mask";
+import { Fragment } from "react";
+import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
-import {useFormContext } from "react-hook-form";
+import InputMask from "react-input-mask";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function PersonDataFragment() {
@@ -22,7 +22,7 @@ export function PersonDataFragment() {
 
   
   return (
-    <React.Fragment>
+    <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.name}>
@@ -91,7 +91,7 @@ export function PersonDataFragment() {
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
-
+{/* 
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.password}>
             <FormLabel>Senha</FormLabel>
@@ -111,7 +111,7 @@ export function PersonDataFragment() {
               {errors.password && errors.password.message}
             </FormErrorMessage>
           </FormControl>
-        </WrapItem>
+        </WrapItem> */}
 
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.phone}>
@@ -135,6 +135,6 @@ export function PersonDataFragment() {
           </FormControl>
         </WrapItem>
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }

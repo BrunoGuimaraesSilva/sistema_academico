@@ -5,5 +5,5 @@ export interface InterProviderProps {
 }
 
 export interface InterClientContext {
-  login(login: string, password: string): Promise<any>;
+  login(login: string, password: string): Promise<void>;
 }

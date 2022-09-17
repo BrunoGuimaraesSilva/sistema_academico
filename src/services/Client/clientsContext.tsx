@@ -12,7 +12,7 @@ export const ClientContext = createContext({} as InterClientContext);
 
 export function ClientProvider({ children }: InterProviderProps) {
   const toast = useToast();
-  const urlApi: String = "https://site-lvhq52xtpa-uc.a.run.app/api";
+  const urlApi = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const router = useRouter();
 
   async function login(login: string, password: string): Promise<void> {

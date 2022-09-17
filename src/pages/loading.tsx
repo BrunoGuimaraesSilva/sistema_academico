@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { LoadingContext } from "../services";
 import Lottie from "lottie-react";
 
-export default function Loading() {
+export default function Loading(): JSX.Element {
   const { loading } = useContext(LoadingContext);
-  
+
   return (
     <>
-      <Modal onClose={():void => {}} isOpen={loading} isCentered>
+      <Modal onClose={(): void => { }} isOpen={loading} isCentered>
         <ModalOverlay />
         <ModalContent
           alignItems={"center"}

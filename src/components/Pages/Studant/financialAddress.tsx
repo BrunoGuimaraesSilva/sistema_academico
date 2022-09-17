@@ -14,16 +14,16 @@ import {
   WrapItem
 } from "@chakra-ui/react";
 import uf from "../../../assets/uf.json";
-import React, { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
 import { StudantContext } from "../../../services";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 
-export function FinancialAddressFragment() {
+export function FinancialAddressFragment(): JSX.Element {
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const { cep, getCepData } = useContext(StudantContext);
+  const { getCepData } = useContext(StudantContext);
 
   const {
     register,
@@ -35,21 +35,21 @@ export function FinancialAddressFragment() {
 
   async function handleClick() {
     await getCepData(getValues("cepFinancial"))
-      .then(() => {
-        setValue("cityFinancial", cep?.city ?? "", {
-          shouldValidate: cep?.city ? true : false,
+      .then((value) => {
+        setValue("cityFinancial", value?.city ?? "", {
+          shouldValidate: value?.city ? true : false,
         });
-        setValue("neighborhoodFinancial", cep?.neighborhood ?? "", {
-          shouldValidate: cep?.neighborhood ? true : false,
+        setValue("neighborhoodFinancial", value?.neighborhood ?? "", {
+          shouldValidate: value?.neighborhood ? true : false,
         });
-        setValue("addressFinancial", cep?.address ?? "", {
-          shouldValidate: cep?.address ? true : false,
+        setValue("addressFinancial", value?.address ?? "", {
+          shouldValidate: value?.address ? true : false,
         });
-        setValue("stateFinancial", cep?.state ?? "", {
-          shouldValidate: cep?.state ? true : false,
+        setValue("stateFinancial", value?.state ?? "", {
+          shouldValidate: value?.state ? true : false,
         });
 
-        if(cep?.erro == 'true'){
+        if(value?.erro == 'true'){
           Toast({
             title: "Cep Inválido",
             description: "Digite um cep valido!",
@@ -76,7 +76,7 @@ export function FinancialAddressFragment() {
   }, [watch()]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.cepFinancial}>
@@ -219,6 +219,6 @@ export function FinancialAddressFragment() {
           </FormControl>
         </WrapItem>
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }

@@ -1,5 +1,4 @@
 import {
-  Box,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -11,11 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { DatePicker } from '@yamatomo/chakra-react-datepicker';
 import moment from 'moment';
-import React from "react";
+import { Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
-import InputMask from "react-input-mask";
 
 export function PersonalDataFragment() {
   const {
@@ -26,7 +24,7 @@ export function PersonalDataFragment() {
   } = useFormContext<StudantRegisterFormValues>();
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
 
         <WrapItem w={"250px"} h={"100px"}>
@@ -156,7 +154,6 @@ export function PersonalDataFragment() {
               <Input
                 placeholder="Seu Sessão"
                 {...register("session", {
-                  required: "Preencha o campo de Sessão",
                 })}
               />
             </InputGroup>
@@ -177,7 +174,6 @@ export function PersonalDataFragment() {
               <Input
                 placeholder="Seu Reservista"
                 {...register("reservist", {
-                  required: "Preencha o campo de Reservista",
                 })}
               />
             </InputGroup>
@@ -198,7 +194,6 @@ export function PersonalDataFragment() {
               <Input
                 placeholder="Seu Ano"
                 {...register("year", {
-                  required: "Preencha o campo de Ano",
                 })}
               />
             </InputGroup>
@@ -219,7 +214,6 @@ export function PersonalDataFragment() {
               <Input
                 placeholder="Sua Serie"
                 {...register("series", {
-                  required: "Preencha o campo de Serie",
                 })}
               />
             </InputGroup>
@@ -231,6 +225,6 @@ export function PersonalDataFragment() {
 
 
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }

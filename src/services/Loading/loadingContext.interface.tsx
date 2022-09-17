@@ -1,9 +1,7 @@
-import { ReactNode } from "react";
-
 export interface InterLoadingContext {
-  loading: boolean
+  loading: boolean;
 }
 
 export interface InterLoadingProps {
-  children: ReactNode;
+  children: JSX.Element;
 }

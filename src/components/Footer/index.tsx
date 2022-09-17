@@ -15,7 +15,7 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import logo from "../../assets/logo.svg";
 
-export function Footer() {
+export function Footer(): JSX.Element {
   return (
     <Box
       bg={useColorModeValue("gray.50", "black.900")}

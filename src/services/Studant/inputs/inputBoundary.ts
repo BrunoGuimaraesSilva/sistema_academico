@@ -1,7 +1,12 @@
-import { CepInputType, CepType, StudantInputType, StudantType } from "./";
+import moment from "moment";
+import {
+  CepInputType,
+  CepType, FinancialInputType, FinancialType, StudantInputType,
+  StudantType
+} from "./";
 
 export function CepInput(data: CepInputType): CepType {
-  let array: CepType = {
+  const array: CepType = {
     cep: data.cep,
     city: data.localidade,
     address: data.logradouro,
@@ -14,15 +19,15 @@ export function CepInput(data: CepInputType): CepType {
 }
 
 export function StudantInput(data: StudantInputType[]): StudantType[] {
-  const array: StudantInputType[] = [];
+  const array: StudantType[] = [];
   data.forEach((element) => {
-    let dataFormated = {
+    const dataFormated = {
       id: element.id,
       name: element.name,
       ra: element.ra,
       email: element.email,
       password: element.password,
-      telephone: element.telephone,
+      phone: element.telephone,
       cpf: element.cpf,
       financial_id: element.financial_id,
       address_id: element.address_id,
@@ -35,10 +40,10 @@ export function StudantInput(data: StudantInputType[]): StudantType[] {
       city: element.city,
       state: element.state,
       address: element.address,
-      district: element.district,
+      neighborhood: element.district,
       number: element.number,
       profession: element.profession,
-      birth_date: element.birth_date,
+      birth_date: moment(element?.birth_date).format("DD/MM/YYYY"),
       birth_place: element.birth_place,
       father_name: element.father_name,
       mother_name: element.mother_name,
@@ -57,8 +62,25 @@ export function StudantInput(data: StudantInputType[]): StudantType[] {
       military_certificate: element.military_certificate,
       regularity_studies: element.regularity_studies,
     };
+
     array.push(dataFormated);
   });
+
+  return array;
+}
+
+export function FinancialInput(data: FinancialInputType): FinancialType {
+  const array: FinancialType = {
+    id: data.id,
+    name: data?.name,
+    cpf: data?.cpf,
+    cep: data?.cep,
+    city: data?.city,
+    state: data?.state,
+    address: data?.address,
+    neighborhood: data?.district,
+    number: data?.number,
+  };
 
   return array;
 }

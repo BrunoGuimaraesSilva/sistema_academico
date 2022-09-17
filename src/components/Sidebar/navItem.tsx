@@ -1,12 +1,8 @@
 import {
-  Flex,
-  FlexProps,
-  Icon,
+  Flex, Icon,
   Link,
-  useColorModeValue,
+  useColorModeValue
 } from "@chakra-ui/react";
-import React, { ReactText } from "react";
-import { IconType } from "react-icons/lib";
 import { NavItemProps } from "./sidebar.interface";
 
 export const NavItem: React.FC<NavItemProps> = ({
@@ -16,7 +12,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 }: NavItemProps) => {
   const colorHover = useColorModeValue(
     {
-      bg: "black",
+      bg: "gray.400",
       color: "white",
     },
     {
@@ -32,6 +28,13 @@ export const NavItem: React.FC<NavItemProps> = ({
     {
       color: "black",
     }
+  );
+  const borderStyle = useColorModeValue(
+    {
+      border:'1px',
+      borderColor:'gray.400'
+    },
+    {}
   );
   return (
     <Link
@@ -49,6 +52,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         bg={useColorModeValue("white", "gray.600")}
         margin={3}
         _hover={colorHover}
+        {...borderStyle}
         {...rest}
       >
         {icon && (

@@ -60,7 +60,7 @@ export interface StudantType {
   ra: string;
   email: string;
   password: string;
-  telephone: string;
+  phone: string;
   cpf: string;
   financial_id: number;
   address_id: number;
@@ -73,7 +73,7 @@ export interface StudantType {
   city: string;
   state: string;
   address: string;
-  district: string;
+  neighborhood: string;
   number: string;
   profession: string;
   birth_date: string;
@@ -103,4 +103,31 @@ export interface CepType {
   neighborhood: string;
   state: string;
   erro?: string;
+}
+
+export interface FinancialInputType {
+  id: number;
+  name: string;
+  cpf: string;
+  address_id: number;
+  created_at: Date;
+  updated_at: Date;
+  cep: string;
+  city: string;
+  state: string;
+  address: string;
+  district: string;
+  number: string;
+}
+
+export interface FinancialType {
+  id: number;
+  name: string;
+  cpf: string;
+  cep: string;
+  city: string;
+  state: string;
+  address: string;
+  neighborhood: string;
+  number: string;
 }

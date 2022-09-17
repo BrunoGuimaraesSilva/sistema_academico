@@ -12,7 +12,7 @@ export const EmployeeContext = createContext({} as EmployeeContextProps);
 export function EmployeeProvider({ children }: EmployeeProviderProps) {
   const [profile, setProfile] = useState<ProfileResponseType[]>();
   const [cep, setCep] = useState<CepResponseEmployeeType>();
-  const urlApi: String = "https://site-lvhq52xtpa-uc.a.run.app/api";
+  const urlApi = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const cookies = parseCookies();
   const token = cookies.token;
   const config = {
@@ -21,19 +21,19 @@ export function EmployeeProvider({ children }: EmployeeProviderProps) {
 
 
   useEffect(() => {
-    if(!profile){
+    if (!profile) {
       axios.get(urlApi + `/profile`, config).then((res): void => {
         setProfile(res.data);
       });
     }
- 
+
   }, []);
 
   async function getCepData(cep: string): Promise<void> {
     axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-    .then((res): void => {
-      setCep(res.data);
-    });
+      .then((res): void => {
+        setCep(res.data);
+      });
   }
 
 

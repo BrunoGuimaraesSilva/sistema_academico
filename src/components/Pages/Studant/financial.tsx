@@ -1,30 +1,18 @@
 import {
-  Box,
-  Button,
-  Center,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
-  Text,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Select,
-  Toast,
-  useColorModeValue,
-  Wrap,
-  WrapItem,
+  Input, InputGroup,
+  InputLeftElement, Wrap,
+  WrapItem
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { CheckIcon } from "@chakra-ui/icons";
-import InputMask from "react-input-mask";
-import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
+import { Fragment } from "react";
 import { useFormContext } from "react-hook-form";
+import { MdOutlineLocationCity } from "react-icons/md";
+import InputMask from "react-input-mask";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 
-export function FinancialFragment() {
+export function FinancialFragment(): JSX.Element {
 
   const {
     register,
@@ -32,7 +20,7 @@ export function FinancialFragment() {
   } = useFormContext<StudantRegisterFormValues>();
 
   return (
-    <React.Fragment>
+    <Fragment>
 
       <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
@@ -79,6 +67,6 @@ export function FinancialFragment() {
         </WrapItem>
 
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }

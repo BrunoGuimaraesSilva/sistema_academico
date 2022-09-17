@@ -12,7 +12,7 @@ interface DividerProps {
 
 const CustomDivider: React.FC<DividerProps> = ({ children }) => {
 
-  const color = useColorModeValue("gray.200", "gray.700");
+  const color = useColorModeValue("gray.400", "gray.700");
 
   return children ? (
     <Box py={10}>
@@ -37,7 +37,7 @@ const CustomDivider: React.FC<DividerProps> = ({ children }) => {
       </Flex>
     </Box>
   ) : (
-    <Divider />
+    <Divider color={color}/>
   );
 };
 

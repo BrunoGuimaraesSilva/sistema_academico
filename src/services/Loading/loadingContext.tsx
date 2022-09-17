@@ -1,15 +1,14 @@
-import { useRouter } from "next/router";
-import { createContext, useEffect, useState } from "react";
-import {
-  InterLoadingContext,
-  InterLoadingProps,
-} from "./loadingContext.interface";
 import axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
-  AxiosResponse,
+  AxiosResponse
 } from "axios";
+import { createContext, useState } from "react";
+import {
+  InterLoadingContext,
+  InterLoadingProps
+} from "./loadingContext.interface";
 
 export const LoadingContext = createContext({} as InterLoadingContext);
 

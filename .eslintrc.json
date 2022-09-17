@@ -1,12 +1,9 @@
 
 {
-  "env": {
-    "browser": true,
-    "es6": true
-  },
+
   "extends": [
+    "next/core-web-vitals",
     "plugin:react/recommended",
-    "airbnb",
     "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
@@ -38,23 +35,18 @@
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-function": "off",
     "no-unused-vars": "off",
     "semi": "off",
     "no-useless-constructor": "off",
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
-    "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "react/jsx-first-prop-new-line": ["error", "always"],
     "import/prefer-default-export": "off",
     "import/extensions": "off",
     "import/no-duplicates": "off",
@@ -70,9 +62,7 @@
     "import/no-named-default": "off",
     "import/named": "off",
     "no-use-before-define": "off",
-    "no-shadow": "off",
-    "object-curly-newline": ["error", { "minProperties": 2  }],
-    "max-len": ["error", { "code": 100, "ignoreStrings": true  }]
+    "no-shadow": "off"
   },
   "settings": {
     "import/resolver": {

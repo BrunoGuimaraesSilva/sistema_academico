@@ -1,17 +1,16 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { FormProvider, useForm } from "react-hook-form";
-
-import React, { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { StudantProvider } from "../../../services";
 import { Container } from "../../Container";
 import CustomDivider from "../../CustomDivider";
+import { StudantContext } from './../../../services';
 import { FinancialFragment } from "./financial";
 import { FinancialAddressFragment } from "./financialAddress";
 import { PersonAddressFragment } from "./studantAddress";
 import { PersonDataFragment } from "./studantData";
-import { StudantRegisterFormValues } from "./studantRegister.interface";
 import { PersonalDataFragment } from "./studantPersonalData";
-import { StudantContext } from './../../../services';
+import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function StudantRegister() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
@@ -22,13 +21,13 @@ export function StudantRegister() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: any): Promise<void> {
+  async function onSubmit(data: StudantRegisterFormValues): Promise<void> {
     saveStudantRegister(data)
   }
 
   return (
     <StudantProvider>
-      <React.Fragment>
+      <Fragment>
         <Container padding={15} w={"100%"}>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,15 +70,7 @@ export function StudantRegister() {
             </form>
           </FormProvider>
         </Container>
-      </React.Fragment>
+      </Fragment>
     </StudantProvider>
   );
 }
-
-// <Box>
-// <Wrap spacing={5}>
-//   <WrapItem w={"250px"}>
-//
-//   </WrapItem>
-// </Wrap>
-// </Box>

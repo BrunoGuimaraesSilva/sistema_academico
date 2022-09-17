@@ -1,11 +1,11 @@
-import { createContext, useState } from "react";
-import {
-  ScreenControlContextProps,
-  ScreenControlProviderProps,
-} from "./screenControlContext.interface";
 import { useRouter } from "next/router";
+import { createContext, useState } from "react";
 import { FiHome, FiTrendingUp } from "react-icons/fi";
 import { LinkItemProps } from "../../components";
+import {
+  ScreenControlContextProps,
+  ScreenControlProviderProps
+} from "./screenControlContext.interface";
 
 export const ScreenControlContext = createContext({} as ScreenControlContextProps);
 
@@ -14,15 +14,15 @@ export function ScreenControlProvider({ children }: ScreenControlProviderProps) 
   const [Screen, setScreen] = useState<JSX.Element>();
 
 
-  function setScreenState(screen: JSX.Element):void {
+  function setScreenState(screen: JSX.Element): void {
     setScreen(screen);
   }
 
   const LinkItems: Array<LinkItemProps> = [
-    { name: "Cadastro Aluno", icon: FiHome, route:'/master/estudante' },
-    { name: "Funcionario", icon: FiTrendingUp, route:'/master/funcionario'},
+    { name: "Cadastro Aluno", icon: FiHome, route: '/master/estudante' },
+    { name: "Funcionario", icon: FiTrendingUp, route: '/master/funcionario' },
   ];
-    return (
+  return (
     <ScreenControlContext.Provider
       value={{
         Screen,

@@ -1,28 +1,16 @@
 import {
-    Box,
-    Button,
-    FormControl,
-    FormErrorMessage,
-    FormLabel,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    SimpleGrid,
-    Switch,
-    Text,
-    Textarea,
-    Wrap,
-    WrapItem,
-  } from "@chakra-ui/react";
-  import { FormProvider, useForm, useFormContext } from "react-hook-form";
-  import React from "react";
-  import { Container } from "../../Container";
-  import CustomDivider from "../../CustomDivider";
-  import { EmployeeDataFragment } from './employeeData';
-import { EmployeeContext, EmployeeProvider } from "../../../services";
+  Box,
+  Button, Text
+} from "@chakra-ui/react";
+import { Fragment } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { EmployeeProvider } from "../../../services";
+import { Container } from "../../Container";
+import CustomDivider from "../../CustomDivider";
 import { EmployeeAddressFragment } from './employeeAddress';
+import { EmployeeDataFragment } from './employeeData';
 
-  export function EmployeeRegister() {
+  export function EmployeeRegister(): JSX.Element {
     const methods = useForm();
   
     const {
@@ -37,7 +25,7 @@ import { EmployeeAddressFragment } from './employeeAddress';
     return (
       <EmployeeProvider>
 
-      <React.Fragment>
+      <Fragment>
         <Container padding={15} w={"100%"}>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,7 +55,7 @@ import { EmployeeAddressFragment } from './employeeAddress';
             </form>
           </FormProvider>
         </Container>
-      </React.Fragment>
+      </Fragment>
       </EmployeeProvider>
 
     );

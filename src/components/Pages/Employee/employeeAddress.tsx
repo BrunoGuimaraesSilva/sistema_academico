@@ -13,17 +13,17 @@ import {
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
 import uf from "../../../assets/uf.json";
-import { EmployeeContext } from "../../../services";
+import { StudantContext } from "../../../services";
 import { EmployeeRegisterFormValues } from "./employeeRegister.interface";
 
-export function EmployeeAddressFragment() {
+export function EmployeeAddressFragment(): JSX.Element {
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const { cep, getCepData } = useContext(EmployeeContext);
+  const { getCepData } = useContext(StudantContext);
 
   const {
     register,
@@ -33,23 +33,23 @@ export function EmployeeAddressFragment() {
     formState: { errors },
   } = useFormContext<EmployeeRegisterFormValues>();
 
-  async function handleClick() {
+  async function handleClick(): Promise<void> {
     await getCepData(getValues("cepEmployee"))
-      .then(() => {
-        setValue("cityEmployee", cep?.localidade ?? "", {
-          shouldValidate: cep?.localidade ? true : false,
+      .then((value): void => {
+        setValue("cityEmployee", value?.city ?? "", {
+          shouldValidate: value?.city ? true : false,
         });
-        setValue("neighborhoodEmployee", cep?.bairro ?? "", {
-          shouldValidate: cep?.bairro ? true : false,
+        setValue("neighborhoodEmployee", value?.neighborhood ?? "", {
+          shouldValidate: value?.neighborhood ? true : false,
         });
-        setValue("addressEmployee", cep?.logradouro ?? "", {
-          shouldValidate: cep?.logradouro ? true : false,
+        setValue("addressEmployee", value?.address ?? "", {
+          shouldValidate: value?.address ? true : false,
         });
-        setValue("stateEmployee", cep?.uf ?? "", {
-          shouldValidate: cep?.uf ? true : false,
+        setValue("stateEmployee", value?.state ?? "", {
+          shouldValidate: value?.state ? true : false,
         });
 
-        if(cep?.erro == 'true'){
+        if (value?.erro == 'true') {
           Toast({
             title: "Cep Inválido",
             description: "Digite um cep valido!",
@@ -61,7 +61,7 @@ export function EmployeeAddressFragment() {
       })
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     const value = getValues("cepEmployee");
     if (value) {
       if (value.indexOf("_") == -1) {
@@ -72,9 +72,9 @@ export function EmployeeAddressFragment() {
     }
   }, [watch()]);
 
-  console.log(errors);
+
   return (
-    <React.Fragment>
+    <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.cepEmployee}>
@@ -96,7 +96,7 @@ export function EmployeeAddressFragment() {
                 <Button
                   disabled={disableButton}
                   size="sm"
-                  onClick={() => {
+                  onClick={(): void => {
                     handleClick();
                   }}
                 >
@@ -141,7 +141,7 @@ export function EmployeeAddressFragment() {
                   required: "Selecione o seu Estado",
                 })}
               >
-                {uf.map((data) => {
+                {uf.map((data): JSX.Element => {
                   return (
                     <option key={data.id} id={data.id} value={data.initials}>
                       {data.name}
@@ -216,6 +216,6 @@ export function EmployeeAddressFragment() {
           </FormControl>
         </WrapItem>
       </Wrap>
-    </React.Fragment>
+    </Fragment>
   );
 }
