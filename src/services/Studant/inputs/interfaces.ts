@@ -52,6 +52,7 @@ export interface StudantInputType {
   photograph: string;
   military_certificate: string;
   regularity_studies: string;
+  status:number
 }
 
 export interface StudantType {
@@ -94,6 +95,7 @@ export interface StudantType {
   photograph: string;
   military_certificate: string;
   regularity_studies: string;
+  status:number
 }
 
 export interface CepType {

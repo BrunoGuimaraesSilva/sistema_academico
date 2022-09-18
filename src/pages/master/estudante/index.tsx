@@ -8,7 +8,7 @@ export default function ListagemEstudantes() {
 
   return (
     <Sidebar linkItems={LinkItems}>
-      <StudantPage key='1'/>
+      <StudantPage/>
     </Sidebar>
   );
 }

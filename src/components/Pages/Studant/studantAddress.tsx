@@ -11,7 +11,8 @@ import {
   Select,
   Toast,
   Wrap,
-  WrapItem
+  WrapItem,
+  useToast
 } from "@chakra-ui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -24,6 +25,7 @@ import { StudantRegisterFormValues } from "./studantRegister.interface";
 export function PersonAddressFragment() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const { getCepData } = useContext(StudantContext);
+  const toast = useToast()
 
   const {
     register,
@@ -50,7 +52,7 @@ export function PersonAddressFragment() {
         });
 
         if (value?.erro == 'true') {
-          Toast({
+          toast({
             title: "Cep Inválido",
             description: "Digite um cep valido!",
             status: "error",

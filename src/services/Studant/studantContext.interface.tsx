@@ -13,6 +13,7 @@ export interface StudantContextProps {
   getAllStudants(): Promise<void>;
   getStudantPersonData(id: number): Promise<StudantType | undefined>;
   getStudantFinancialData(id: number): Promise<FinancialType | undefined>;
+  inactivateStudant(id: number): Promise<void>;
   allStudants?: StudantType[];
   studant?: StudantType;
   financial?: FinancialType;

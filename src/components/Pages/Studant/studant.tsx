@@ -5,6 +5,7 @@ import { StudantType } from "@/services/Studant/inputs";
 import {
   Box, List,
   ListIcon,
+  Icon,
   ListItem,
   Modal,
   ModalBody,
@@ -21,7 +22,8 @@ import {
   Tr,
   useDisclosure,
   Wrap,
-  WrapItem
+  WrapItem,
+  IconProps
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from 'react';
@@ -29,21 +31,35 @@ import { MdCheckCircle } from "react-icons/md";
 import { CPFMask, PhoneMask } from '../../../utils/formaters';
 
 export function StudantPage(): JSX.Element {
-  const { getAllStudants, allStudants } = useContext(StudantContext)
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { getAllStudants, allStudants, inactivateStudant } = useContext(StudantContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [studant, setStudant] = useState<StudantType>();
-  const router = useRouter()
+  const router = useRouter();
+
+  const CircleIcon = (props: IconProps) => (
+    <Icon viewBox='0 0 200 200' {...props}>
+      <path
+        fill='currentColor'
+        d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
+      />
+    </Icon>
+  )
+
   useEffect(() => {
-    getAllStudants()
+    getAllStudants();
   }, []);
 
   return (
     <>
       <Box mt={10} pl={'5%'} pr={'5%'}>
+        <GButton ml='auto' mr="0" display='block' onClick={() => { router.push(`estudante/cadastro`) }}>
+          Cadastro de Aluno
+        </GButton>
         <TableContainer>
           <Table size={'sm'} variant="simple">
             <Thead>
               <Tr>
+                <Th>Ativo</Th>
                 <Th isNumeric>RA</Th>
                 <Th>Nome</Th>
                 <Th>CPF</Th>
@@ -56,6 +72,7 @@ export function StudantPage(): JSX.Element {
                 allStudants?.map((element) => {
                   return (
                     <Tr key={element.id}>
+                      <Td>{element.status === 0 ? (<CircleIcon boxSize={8} color='red.500' />) : (<CircleIcon boxSize={8} color='green.500' />)}  </Td>
                       <Td isNumeric>{element.id}</Td>
                       <Td>{element.name}</Td>
                       <Td>{CPFMask(element.cpf ?? '')}</Td>
@@ -70,6 +87,9 @@ export function StudantPage(): JSX.Element {
                           </WrapItem>
                           <WrapItem>
                             <GButton onClick={() => { router.push(`estudante/${element.financial_id}?page=financeiro`) }}>Editar Financeiro</GButton>
+                          </WrapItem>
+                          <WrapItem>
+                            <GButton onClick={() => { inactivateStudant(element.id) }}>{element.status === 0 ? (<Text> Ativar Aluno</Text>) : (<Text> Inativar Aluno</Text>)}</GButton>
                           </WrapItem>
                         </Wrap>
                       </Td>

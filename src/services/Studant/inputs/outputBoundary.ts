@@ -7,7 +7,7 @@ export function converterToCreateUser(data: StudantRegisterFormValues) {
     telephone: data?.phone ? data?.phone.replace(/\D/g, "") : "",
     email: data?.email,
     cpf: data?.cpf ? data?.cpf.replace(/\D/g, "") : "",
-    studantAddress: {
+    studentAddress: {
       cep: data?.cepStudant ? data?.cepStudant.replace(/\D/g, "") : "",
       city: data?.cityStudant,
       district: data?.neighborhoodStudant,
@@ -16,8 +16,8 @@ export function converterToCreateUser(data: StudantRegisterFormValues) {
       number: data?.numberStudant,
     },
     financial: {
-      cpf: data?.cpfFinancial ? data?.cpfFinancial.replace(/\D/g, "") : "",
-      name: data?.nameFinancial,
+      cpf_financial: data?.cpfFinancial ? data?.cpfFinancial.replace(/\D/g, "") : "",
+      name_financial: data?.nameFinancial,
     },
     financialAddress: {
       cep: data?.cepFinancial ? data?.cepFinancial.replace(/\D/g, "") : "",
@@ -34,9 +34,8 @@ export function converterToCreateUser(data: StudantRegisterFormValues) {
     mother_name: data?.mother_name,
     session: data?.session,
     reservist: data?.reservist,
-    year: data?.year,
+    year: +data?.year,
     series: data?.series,
-    status: 1,
     note: "",
   };
 

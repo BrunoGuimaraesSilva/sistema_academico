@@ -62,7 +62,6 @@ export default function ListagemEstudantes() {
         }
 
         if (page == 'financeiro') {
-            console.log(idUser)
             getStudantFinancialData(idUser).then((data) => {
                 //Endereco
                 setValue("cepFinancial", data?.cep ?? "");

@@ -54,6 +54,7 @@ export function StudantInput(data: StudantInputType[]): StudantType[] {
       gender_id: element.gender_id,
       civil_status_id: element.civil_status_id,
       rg: element.rg,
+      status: element.status,
       voter_registration: element.voter_registration,
       proof_residence: element.proof_residence,
       birth_certificate: element.birth_certificate,
