@@ -1,8 +1,11 @@
 import moment from "moment";
 import {
   CepInputType,
-  CepType, FinancialInputType, FinancialType, StudantInputType,
-  StudantType
+  CepType,
+  FinancialInputType,
+  FinancialType,
+  StudantInputType,
+  StudantType,
 } from "./";
 
 export function CepInput(data: CepInputType): CepType {
@@ -73,8 +76,9 @@ export function StudantInput(data: StudantInputType[]): StudantType[] {
 export function FinancialInput(data: FinancialInputType): FinancialType {
   const array: FinancialType = {
     id: data.id,
-    name: data?.name,
-    cpf: data?.cpf,
+    name: data?.name_financial,
+    cpf: data?.cpf_financial,
+    address_id: data?.address_id,
     cep: data?.cep,
     city: data?.city,
     state: data?.state,

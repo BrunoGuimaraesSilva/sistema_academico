@@ -14,6 +14,8 @@ export interface StudantContextProps {
   getStudantPersonData(id: number): Promise<StudantType | undefined>;
   getStudantFinancialData(id: number): Promise<FinancialType | undefined>;
   inactivateStudant(id: number): Promise<void>;
+  editStudant(data: StudantRegisterFormValues): Promise<void>;
+  editFinancial(data: StudantRegisterFormValues): Promise<void>;
   allStudants?: StudantType[];
   studant?: StudantType;
   financial?: FinancialType;

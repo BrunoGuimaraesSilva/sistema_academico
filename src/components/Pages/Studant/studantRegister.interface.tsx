@@ -1,17 +1,21 @@
 export type StudantRegisterFormValues = {
+  id?: number;
   name?: string;
   phone?: string;
   email?: string;
   password?: string;
   cpf?: string;
 
+  addressIdStudant?: number;
   cepStudant?: string;
   cityStudant?: string;
   neighborhoodStudant?: string;
   addressStudant?: string;
   stateStudant?: string;
   numberStudant?: string;
-  
+
+  addressIdFinancial?: number;
+  idFinancial?: number;
   cpfFinancial?: string;
   nameFinancial?: string;
   cepFinancial?: string;

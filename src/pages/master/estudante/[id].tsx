@@ -1,22 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import { FinancialAddressFragment, FinancialFragment, GButton, PersonAddressFragment, PersonalDataFragment, PersonDataFragment, StudantRegisterFormValues } from "components";
-import Sidebar from "components/Sidebar/sidebar";
-import { LoadingContext, ScreenControlContext, StudantContext } from "services";
-import { useRouter } from "next/router";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { Box, Text } from "@chakra-ui/react";
 import CustomDivider from "@/components/CustomDivider";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { Box, Text } from "@chakra-ui/react";
+import { FinancialAddressFragment, FinancialFragment, GButton, PersonAddressFragment, PersonalDataFragment, PersonDataFragment, StudantRegisterFormValues } from "components";
+import Sidebar from "components/Sidebar/sidebar";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { ScreenControlContext, StudantContext } from "services";
 
 export default function ListagemEstudantes() {
-    const { getStudantPersonData, getStudantFinancialData } = useContext(StudantContext);
-    const { loading } = useContext(LoadingContext);
+    const { getStudantPersonData, getStudantFinancialData, editStudant, editFinancial } = useContext(StudantContext);
+    const [addressId, setAddressId] = useState<number>();
     const { LinkItems } = useContext(ScreenControlContext);
     const router = useRouter()
     const { id: number, page } = router.query
     const idUser: number = number ? +number : 0
     const methods = useForm<StudantRegisterFormValues>();
-    const [fragmentToRender, setFragmentToRender] = useState(false);
+
     const {
         handleSubmit,
         setValue,
@@ -24,12 +24,27 @@ export default function ListagemEstudantes() {
     } = methods;
 
     async function onSubmit(data: any): Promise<void> {
-        console.log(data)
+        if (page == 'pessoais') {
+            const arrayToSend: StudantRegisterFormValues = {
+                addressIdStudant: addressId,
+                id: idUser,
+                ...data
+            }
+            editStudant(arrayToSend)
+        }
+
+        if (page == 'financeiro') {
+            const arrayToSend: StudantRegisterFormValues = {
+                addressIdFinancial: addressId,
+                id: idUser,
+                ...data
+            }
+            editFinancial(arrayToSend)
+        }
+
     }
 
-    console.log(loading)
-
-    async function getData() {
+    function getData() {
         if (page == 'pessoais') {
             getStudantPersonData(idUser).then((data) => {
                 //Endereco
@@ -57,12 +72,13 @@ export default function ListagemEstudantes() {
                 setValue("year", `${data?.year}` ?? "");
                 setValue("series", data?.series ?? "");
 
-                setFragmentToRender(true)
+                setAddressId(data?.address_id)
             })
         }
 
         if (page == 'financeiro') {
             getStudantFinancialData(idUser).then((data) => {
+                console.log(data)
                 //Endereco
                 setValue("cepFinancial", data?.cep ?? "");
                 setValue("stateFinancial", data?.state ?? "");
@@ -75,6 +91,7 @@ export default function ListagemEstudantes() {
                 setValue("cpfFinancial", data?.cpf ?? "");
                 setValue("nameFinancial", data?.name ?? "");
 
+                setAddressId(data?.address_id)
             })
         }
 

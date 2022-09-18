@@ -52,7 +52,7 @@ export interface StudantInputType {
   photograph: string;
   military_certificate: string;
   regularity_studies: string;
-  status:number
+  status: number;
 }
 
 export interface StudantType {
@@ -95,7 +95,7 @@ export interface StudantType {
   photograph: string;
   military_certificate: string;
   regularity_studies: string;
-  status:number
+  status: number;
 }
 
 export interface CepType {
@@ -109,8 +109,8 @@ export interface CepType {
 
 export interface FinancialInputType {
   id: number;
-  name: string;
-  cpf: string;
+  name_financial: string;
+  cpf_financial: string;
   address_id: number;
   created_at: Date;
   updated_at: Date;
@@ -123,9 +123,10 @@ export interface FinancialInputType {
 }
 
 export interface FinancialType {
-  id: number;
+  id?: number;
   name: string;
   cpf: string;
+  address_id?: number;
   cep: string;
   city: string;
   state: string;

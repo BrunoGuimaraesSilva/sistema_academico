@@ -16,7 +16,9 @@ export function converterToCreateUser(data: StudantRegisterFormValues) {
       number: data?.numberStudant,
     },
     financial: {
-      cpf_financial: data?.cpfFinancial ? data?.cpfFinancial.replace(/\D/g, "") : "",
+      cpf_financial: data?.cpfFinancial
+        ? data?.cpfFinancial.replace(/\D/g, "")
+        : "",
       name_financial: data?.nameFinancial,
     },
     financialAddress: {
@@ -40,4 +42,52 @@ export function converterToCreateUser(data: StudantRegisterFormValues) {
   };
 
   return array;
+}
+
+export function converterToEditStudent(data: StudantRegisterFormValues) {
+  const array = {
+    name: data.name,
+    email: data.email,
+    telephone: data.phone,
+    cpf: data.cpf,
+    studentAddress: {
+      addressId: data.addressIdStudant,
+      cep: data.cepStudant,
+      city: data.cityStudant,
+      district: data.neighborhoodStudant,
+      address: data.addressStudant,
+      state: data.stateStudant,
+      number: data.numberStudant,
+    },
+    profession: data.profession,
+    birth_date: data.birth_date,
+    birth_place: data.birth_place,
+    father_name: data.father_name,
+    mother_name: data.mother_name,
+    session: data.session,
+    reservist: data.reservist,
+    year: data.year,
+    series: data.series,
+  };
+
+  return array
+}
+
+
+export function converterToEditFinancial(data: StudantRegisterFormValues) {
+  const array = {
+    name: data.nameFinancial,
+    cpf: data.cpfFinancial,
+    financialAddress: {
+      addressId: data.addressIdFinancial,
+      cep: data.cepFinancial,
+      city: data.cityFinancial,
+      district: data.neighborhoodFinancial,
+      address: data.addressFinancial,
+      state: data.stateFinancial,
+      number: data.numberFinancial,
+    }
+  };
+
+  return array
 }

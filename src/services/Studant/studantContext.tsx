@@ -1,11 +1,11 @@
+import { useToast } from '@chakra-ui/react';
 import axios from "axios";
-import { useToast } from '@chakra-ui/react'
 import { StudantRegisterFormValues } from "components";
+import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { createContext, useState } from "react";
 import { StudantContextProps, StudantProviderProps } from "./";
-import { CepInput, CepType, converterToCreateUser, FinancialInput, FinancialType, StudantInput, StudantType } from "./inputs";
-import { useRouter } from "next/router";
+import { CepInput, CepType, converterToCreateUser, converterToEditFinancial, converterToEditStudent, FinancialInput, FinancialType, StudantInput, StudantType } from "./inputs";
 
 export const StudantContext = createContext({} as StudantContextProps);
 
@@ -24,33 +24,14 @@ export function StudantProvider({ children }: StudantProviderProps) {
   const [studant, setStudant] = useState<StudantType>();
   const [cep, setCep] = useState<CepType>();
 
-  async function inactivateStudant(id: number): Promise<void> {
-    try {
-      await axios.delete(`${urlApi}/student/${id}`, config).then(() => {
-        toast({
-          title: 'Sucesso ao inativar',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        });
-        getAllStudants();
-      })
-    } catch (error) { 
-      toast({
-        title: 'Erro ao buscar o estudante',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-    }
-  }
+  
 
   async function getStudantPersonData(id: number): Promise<StudantType | undefined> {
     try {
       const res = await axios.get(`${urlApi}/student/${id}`, config)
       //setStudant(StudantInput(res.data)[0]);
       return StudantInput(res.data)[0]
-    } catch (error) { 
+    } catch (error) {
       toast({
         title: 'Erro ao buscar o estudante',
         status: 'error',
@@ -64,8 +45,8 @@ export function StudantProvider({ children }: StudantProviderProps) {
     try {
       const res = await axios.get(`${urlApi}/financial/${id}`, config)
       //setFinancial(FinancialInput(res.data));
-      return FinancialInput(res.data)
-    } catch (error) { 
+      return FinancialInput(res.data[0])
+    } catch (error) {
       toast({
         title: 'Erro ao buscar os dados financeiros',
         status: 'error',
@@ -75,13 +56,12 @@ export function StudantProvider({ children }: StudantProviderProps) {
     }
   }
 
-
   async function getAllStudants(): Promise<void> {
     try {
       const res = await axios.get(`${urlApi}/student`, config)
       setAllStudants(StudantInput(res.data));
 
-    } catch (error) { 
+    } catch (error) {
       toast({
         title: 'Erro ao buscar os estudantes',
         status: 'error',
@@ -105,7 +85,7 @@ export function StudantProvider({ children }: StudantProviderProps) {
         })
         router.back()
       });
-    } catch (error) { 
+    } catch (error) {
       toast({
         title: 'Erro ao salvar o estudante',
         status: 'error',
@@ -127,7 +107,83 @@ export function StudantProvider({ children }: StudantProviderProps) {
         duration: 5000,
         isClosable: true,
       })
-     }
+    }
+  }
+
+  async function editStudant(data: StudantRegisterFormValues): Promise<void> {
+    try {
+      const dataToSend = converterToEditStudent(data)
+      console.log(dataToSend)
+      const res = axios.put(`${urlApi}/student/${data.id}`, dataToSend, config)
+        .then(() => {
+          toast({
+            title: 'Sucesso ao editar o estudante',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
+          router.back()
+        })
+        .catch(() => {
+          toast({
+            title: 'Erro ao editar o estudante',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+        });
+    } catch (error) {
+
+    }
+  }
+
+  async function editFinancial(data: StudantRegisterFormValues): Promise<void> {
+    try {
+      console.log(data)
+      const dataToSend = converterToEditFinancial(data)
+      console.log(dataToSend)
+      // const res = axios.put(`${urlApi}/student/${data.id}`, dataToSend, config)
+      //   .then(() => {
+      //     toast({
+      //       title: 'Sucesso ao editar o estudante',
+      //       status: 'success',
+      //       duration: 5000,
+      //       isClosable: true,
+      //     })
+      //     router.back()
+      //   })
+      //   .catch(() => {
+      //     toast({
+      //       title: 'Erro ao editar o estudante',
+      //       status: 'error',
+      //       duration: 5000,
+      //       isClosable: true,
+      //     })
+      //   });
+    } catch (error) {
+
+    }
+  }
+
+  async function inactivateStudant(id: number): Promise<void> {
+    try {
+      await axios.delete(`${urlApi}/student/${id}`, config).then(() => {
+        toast({
+          title: 'Sucesso ao inativar',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        getAllStudants();
+      })
+    } catch (error) {
+      toast({
+        title: 'Erro ao buscar o estudante',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
   }
 
   return (
@@ -139,6 +195,8 @@ export function StudantProvider({ children }: StudantProviderProps) {
         getStudantPersonData,
         getStudantFinancialData,
         inactivateStudant,
+        editStudant,
+        editFinancial,
         financial,
         studant,
         allStudants,

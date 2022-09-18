@@ -1,20 +1,19 @@
 import { Container } from '@/components';
 import {
-  Box, Center, Flex, Text, useColorModeValue
+  Box, Center, Flex, useColorModeValue
 } from '@chakra-ui/react';
 import Lottie from "lottie-react";
-import White404 from "../assets/404-white.json";
-import Black404 from "../assets/404-black.json";
+import black404 from "../assets/404-black.json";
+import white404 from "../assets/404-white.json";
 
-export default function screen404() {
+export default function Screen404() {
 
-  const animation = useColorModeValue(Black404,White404);
+  const animation = useColorModeValue(black404, white404);
 
   return (
     <Container>
       <Center w='100%' mt='15%'>
-        <Box
-        >
+        <Box>
           <Box alignItems={"center"}
             p={4}>
             <Flex>
