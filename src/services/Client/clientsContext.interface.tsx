@@ -10,5 +10,5 @@ export interface InterClientContext {
 
 export interface UserType {
   ra: number;
-  name: string
+  name: string;
 }

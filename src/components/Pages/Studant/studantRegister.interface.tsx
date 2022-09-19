@@ -25,7 +25,7 @@ export type StudantRegisterFormValues = {
   stateFinancial?: string;
   numberFinancial?: string;
 
-  auxiliaryDocumentId?: number
+  auxiliaryDocumentId?: number;
   profession: string;
   birth_date: string;
   birth_place: string;
