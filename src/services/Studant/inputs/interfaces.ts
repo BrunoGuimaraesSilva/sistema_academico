@@ -134,3 +134,13 @@ export interface FinancialType {
   neighborhood: string;
   number: string;
 }
+
+export interface CivilStatusType {
+  id: number;
+  civil_status: string;
+}
+
+export interface GenderType {
+  id: number;
+  gender: string;
+}

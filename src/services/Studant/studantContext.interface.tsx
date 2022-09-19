@@ -1,6 +1,6 @@
 import { StudantRegisterFormValues } from "components";
 import { ReactNode } from "react";
-import { CepType, StudantType, FinancialType } from "./inputs";
+import { CepType, StudantType, FinancialType, CivilStatusType, GenderType } from "./inputs";
 
 export interface StudantProviderProps {
   children: ReactNode;
@@ -14,8 +14,11 @@ export interface StudantContextProps {
   getStudantPersonData(id: number): Promise<StudantType | undefined>;
   getStudantFinancialData(id: number): Promise<FinancialType | undefined>;
   inactivateStudant(id: number): Promise<void>;
+  activateStudant(id: number): Promise<void>;
   editStudant(data: StudantRegisterFormValues): Promise<void>;
   editFinancial(data: StudantRegisterFormValues): Promise<void>;
+  getCivilStatus(): Promise<CivilStatusType[] | undefined>;
+  getGender(): Promise<GenderType[] | undefined>
   allStudants?: StudantType[];
   studant?: StudantType;
   financial?: FinancialType;

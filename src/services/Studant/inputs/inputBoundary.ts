@@ -6,6 +6,7 @@ import {
   FinancialType,
   StudantInputType,
   StudantType,
+  CivilStatusType,
 } from "./";
 
 export function CepInput(data: CepInputType): CepType {

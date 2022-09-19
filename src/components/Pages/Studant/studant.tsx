@@ -31,7 +31,7 @@ import { MdCheckCircle } from "react-icons/md";
 import { CPFMask, PhoneMask } from '../../../utils/formaters';
 
 export function StudantPage(): JSX.Element {
-  const { getAllStudants, allStudants, inactivateStudant } = useContext(StudantContext);
+  const { getAllStudants, allStudants, inactivateStudant, activateStudant } = useContext(StudantContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [studant, setStudant] = useState<StudantType>();
   const router = useRouter();
@@ -89,7 +89,7 @@ export function StudantPage(): JSX.Element {
                             <GButton onClick={() => { router.push(`estudante/${element.financial_id}?page=financeiro`) }}>Editar Financeiro</GButton>
                           </WrapItem>
                           <WrapItem>
-                            <GButton onClick={() => { inactivateStudant(element.id) }}>{element.status === 0 ? (<Text> Ativar Aluno</Text>) : (<Text> Inativar Aluno</Text>)}</GButton>
+                            <GButton onClick={() => { element.status === 0 ? activateStudant(element.id) : inactivateStudant(element.id)}}>{element.status === 0 ? (<Text> Ativar Aluno</Text>) : (<Text> Inativar Aluno</Text>)}</GButton>
                           </WrapItem>
                         </Wrap>
                       </Td>

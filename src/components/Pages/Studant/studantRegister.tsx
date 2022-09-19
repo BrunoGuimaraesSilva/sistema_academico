@@ -6,10 +6,10 @@ import { Container } from "../../Container";
 import CustomDivider from "../../CustomDivider";
 import { StudantContext } from './../../../services';
 import { FinancialFragment } from "./financial";
-import { FinancialAddressFragment } from "./financialAddress";
-import { PersonAddressFragment } from "./studantAddress";
-import { PersonDataFragment } from "./studantData";
-import { PersonalDataFragment } from "./studantPersonalData";
+import { FinancialAddressFragment } from "./financialAddressFragment";
+import { PersonAddressFragment } from "./personAddressFragment";
+import { PersonDataFragment } from "./personDataFragment";
+import { PersonalDataFragment } from "./personalDataFragment";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function StudantRegister() {

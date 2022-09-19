@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { createContext, useState } from "react";
 import { StudantContextProps, StudantProviderProps } from "./";
-import { CepInput, CepType, converterToCreateUser, converterToEditFinancial, converterToEditStudent, FinancialInput, FinancialType, StudantInput, StudantType } from "./inputs";
+import { CepInput, CepType, CivilStatusType, converterToCreateUser, converterToEditFinancial, converterToEditStudent, FinancialInput, FinancialType, GenderType, StudantInput, StudantType } from "./inputs";
 
 export const StudantContext = createContext({} as StudantContextProps);
 
@@ -24,7 +24,36 @@ export function StudantProvider({ children }: StudantProviderProps) {
   const [studant, setStudant] = useState<StudantType>();
   const [cep, setCep] = useState<CepType>();
 
-  
+
+  async function getCivilStatus(): Promise<CivilStatusType[] | undefined> {
+    try {
+      const res = await axios.get(`${urlApi}/civilstatus`, config)
+      const responseData: CivilStatusType[] = res.data
+      return responseData
+    } catch (error) {
+      toast({
+        title: 'Erro ao buscar os estados civis',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }
+
+  async function getGender(): Promise<GenderType[] | undefined> {
+    try {
+      const res = await axios.get(`${urlApi}/gender`, config)
+      const responseData: GenderType[] = res.data
+      return responseData
+    } catch (error) {
+      toast({
+        title: 'Erro ao buscar os generos',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }
 
   async function getStudantPersonData(id: number): Promise<StudantType | undefined> {
     try {
@@ -113,7 +142,6 @@ export function StudantProvider({ children }: StudantProviderProps) {
   async function editStudant(data: StudantRegisterFormValues): Promise<void> {
     try {
       const dataToSend = converterToEditStudent(data)
-      console.log(dataToSend)
       const res = axios.put(`${urlApi}/student/${data.id}`, dataToSend, config)
         .then(() => {
           toast({
@@ -139,27 +167,25 @@ export function StudantProvider({ children }: StudantProviderProps) {
 
   async function editFinancial(data: StudantRegisterFormValues): Promise<void> {
     try {
-      console.log(data)
       const dataToSend = converterToEditFinancial(data)
-      console.log(dataToSend)
-      // const res = axios.put(`${urlApi}/student/${data.id}`, dataToSend, config)
-      //   .then(() => {
-      //     toast({
-      //       title: 'Sucesso ao editar o estudante',
-      //       status: 'success',
-      //       duration: 5000,
-      //       isClosable: true,
-      //     })
-      //     router.back()
-      //   })
-      //   .catch(() => {
-      //     toast({
-      //       title: 'Erro ao editar o estudante',
-      //       status: 'error',
-      //       duration: 5000,
-      //       isClosable: true,
-      //     })
-      //   });
+      const res = axios.put(`${urlApi}/financial/${data.id}`, dataToSend, config)
+        .then(() => {
+          toast({
+            title: 'Sucesso ao editar financeiro',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
+          router.back()
+        })
+        .catch(() => {
+          toast({
+            title: 'Erro ao editar o financeiro',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
+        });
     } catch (error) {
 
     }
@@ -186,6 +212,27 @@ export function StudantProvider({ children }: StudantProviderProps) {
     }
   }
 
+  async function activateStudant(id: number): Promise<void> {
+    try {
+      await axios.post(`${urlApi}/studentactivate/${id}`, config).then(() => {
+        toast({
+          title: 'Sucesso ao ativar',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        getAllStudants();
+      })
+    } catch (error) {
+      toast({
+        title: 'Erro ao buscar o estudante',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }
+
   return (
     <StudantContext.Provider
       value={{
@@ -195,8 +242,11 @@ export function StudantProvider({ children }: StudantProviderProps) {
         getStudantPersonData,
         getStudantFinancialData,
         inactivateStudant,
+        activateStudant,
         editStudant,
         editFinancial,
+        getCivilStatus,
+        getGender,
         financial,
         studant,
         allStudants,

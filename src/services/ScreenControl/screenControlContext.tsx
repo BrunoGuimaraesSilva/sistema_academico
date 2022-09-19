@@ -19,9 +19,10 @@ export function ScreenControlProvider({ children }: ScreenControlProviderProps) 
   }
 
   const LinkItems: Array<LinkItemProps> = [
-    { name: "Cadastro Aluno", icon: FiHome, route: '/master/estudante' },
-    { name: "Funcionario", icon: FiTrendingUp, route: '/master/funcionario' },
+    { name: "Estudantes", icon: FiHome, route: '/master/estudante' },
+    { name: "Funcionarios", icon: FiTrendingUp, route: '/master/funcionario' },
   ];
+
   return (
     <ScreenControlContext.Provider
       value={{

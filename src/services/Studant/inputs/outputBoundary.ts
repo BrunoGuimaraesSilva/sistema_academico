@@ -29,16 +29,20 @@ export function converterToCreateUser(data: StudantRegisterFormValues) {
       state: data?.stateFinancial,
       number: data?.numberFinancial,
     },
-    profession: data?.profession,
-    birth_date: moment(data?.birth_date).format("YYYY-MM-DD"),
-    birth_place: data?.birth_place,
-    father_name: data?.father_name,
-    mother_name: data?.mother_name,
-    session: data?.session,
-    reservist: data?.reservist,
-    year: +data?.year,
-    series: data?.series,
-    note: "",
+    auxiliaryDocument: {
+      profession: data?.profession,
+      birth_date: moment(data?.birth_date).format("YYYY-MM-DD"),
+      birth_place: data?.birth_place,
+      father_name: data?.father_name,
+      mother_name: data?.mother_name,
+      session: data?.session,
+      reservist: data?.reservist,
+      year: +data?.year,
+      series: data?.series,
+      gender_id: data.gender,
+      civil_status_id: data.civil_status,
+    },
+    note: "testes",
   };
 
   return array;
@@ -48,46 +52,51 @@ export function converterToEditStudent(data: StudantRegisterFormValues) {
   const array = {
     name: data.name,
     email: data.email,
-    telephone: data.phone,
-    cpf: data.cpf,
+    telephone: data?.phone ? data?.phone.replace(/\D/g, "") : "",
+    cpf: data?.cpf ? data?.cpf.replace(/\D/g, "") : "",
+    note: "testesss",
     studentAddress: {
-      addressId: data.addressIdStudant,
-      cep: data.cepStudant,
+      id_address: data.addressIdStudant,
+      cep: data?.cepStudant ? data?.cepStudant.replace(/\D/g, "") : "",
       city: data.cityStudant,
       district: data.neighborhoodStudant,
       address: data.addressStudant,
       state: data.stateStudant,
       number: data.numberStudant,
     },
-    profession: data.profession,
-    birth_date: data.birth_date,
-    birth_place: data.birth_place,
-    father_name: data.father_name,
-    mother_name: data.mother_name,
-    session: data.session,
-    reservist: data.reservist,
-    year: data.year,
-    series: data.series,
+    auxiliaryDocument: {
+      id_auxiliaryDocument: data.auxiliaryDocumentId,
+      profession: data.profession,
+      birth_date: moment(data?.birth_date).format("YYYY-MM-DD"),
+      birth_place: data.birth_place,
+      father_name: data.father_name,
+      mother_name: data.mother_name,
+      session: data.session,
+      reservist: data.reservist,
+      year: data.year,
+      series: data.series,
+      gender_id: data.gender,
+      civil_status_id: data.civil_status,
+    },
   };
 
-  return array
+  return array;
 }
-
 
 export function converterToEditFinancial(data: StudantRegisterFormValues) {
   const array = {
-    name: data.nameFinancial,
-    cpf: data.cpfFinancial,
+    name_financial: data.nameFinancial,
+    cpf_financial: data?.cpfFinancial ? data?.cpfFinancial.replace(/\D/g, "") : "",
     financialAddress: {
       addressId: data.addressIdFinancial,
-      cep: data.cepFinancial,
+      cep: data?.cepFinancial ? data?.cepFinancial.replace(/\D/g, "") : "",
       city: data.cityFinancial,
       district: data.neighborhoodFinancial,
       address: data.addressFinancial,
       state: data.stateFinancial,
       number: data.numberFinancial,
-    }
+    },
   };
 
-  return array
+  return array;
 }

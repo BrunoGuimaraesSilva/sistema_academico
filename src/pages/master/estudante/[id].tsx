@@ -11,6 +11,7 @@ import { ScreenControlContext, StudantContext } from "services";
 export default function ListagemEstudantes() {
     const { getStudantPersonData, getStudantFinancialData, editStudant, editFinancial } = useContext(StudantContext);
     const [addressId, setAddressId] = useState<number>();
+    const [auxiliaryDocumentId, setAuxiliaryDocumentId] = useState<number>();
     const { LinkItems } = useContext(ScreenControlContext);
     const router = useRouter()
     const { id: number, page } = router.query
@@ -27,6 +28,7 @@ export default function ListagemEstudantes() {
         if (page == 'pessoais') {
             const arrayToSend: StudantRegisterFormValues = {
                 addressIdStudant: addressId,
+                auxiliaryDocumentId: auxiliaryDocumentId,
                 id: idUser,
                 ...data
             }
@@ -47,6 +49,8 @@ export default function ListagemEstudantes() {
     function getData() {
         if (page == 'pessoais') {
             getStudantPersonData(idUser).then((data) => {
+
+                console.log(data)
                 //Endereco
                 setValue("cepStudant", data?.cep ?? "");
                 setValue("stateStudant", data?.state ?? "");
@@ -71,8 +75,11 @@ export default function ListagemEstudantes() {
                 setValue("reservist", data?.reservist ?? "");
                 setValue("year", `${data?.year}` ?? "");
                 setValue("series", data?.series ?? "");
+                setValue("civil_status", (data?.civil_status_id ?? 1).toString());
+                setValue("gender", (data?.gender_id ?? 1).toString());
 
-                setAddressId(data?.address_id)
+                setAddressId(data?.address_id);
+                setAuxiliaryDocumentId(data?.auxiliary_document_id)
             })
         }
 

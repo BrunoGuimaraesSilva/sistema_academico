@@ -7,3 +7,8 @@ export interface InterProviderProps {
 export interface InterClientContext {
   login(login: string, password: string): Promise<void>;
 }
+
+export interface UserType {
+  ra: number;
+  name: string
+}

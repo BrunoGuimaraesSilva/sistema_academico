@@ -1,3 +1,5 @@
+import { StudantContext } from "@/services";
+import { CivilStatusType, GenderType } from "@/services/Studant/inputs";
 import {
   FormControl,
   FormErrorMessage,
@@ -5,12 +7,13 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
 import { DatePicker } from '@yamatomo/chakra-react-datepicker';
 import moment from 'moment';
-import { Fragment } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
@@ -22,6 +25,22 @@ export function PersonalDataFragment() {
     setValue,
     getValues
   } = useFormContext<StudantRegisterFormValues>();
+
+  const [gender, setGender] = useState<GenderType[]>();
+  const [civilStatus, setCivilStatus] = useState<CivilStatusType[]>();
+
+  const { getGender, getCivilStatus } = useContext(StudantContext)
+
+  useEffect((): void => {
+    getGender().then((data): void => {
+      setGender(data)
+    });
+
+    getCivilStatus().then((data): void => {
+      setCivilStatus(data)
+    });
+  }, []);
+
 
   return (
     <Fragment>
@@ -81,8 +100,6 @@ export function PersonalDataFragment() {
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
-
-
 
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.birth_place}>
@@ -223,6 +240,58 @@ export function PersonalDataFragment() {
           </FormControl>
         </WrapItem>
 
+
+        <WrapItem w={"250px"} h={"100px"}>
+          <FormControl isInvalid={!!errors.gender}>
+            <FormLabel>Gênero</FormLabel>
+            <InputGroup>
+              <Select
+                id="gender_select"
+                placeholder="Selecione seu gênero"
+                {...register("gender", {
+                  required: "Selecione o seu gênero",
+                })}
+              >
+                {gender?.map((data) => {
+                  return (
+                    <option key={data.id} id={data.id.toString()} value={data.id}>
+                      {data.gender}
+                    </option>
+                  );
+                })}
+              </Select>
+            </InputGroup>
+            <FormErrorMessage>
+              {errors.gender && errors.gender.message}
+            </FormErrorMessage>
+          </FormControl>
+        </WrapItem>
+
+        <WrapItem w={"250px"} h={"100px"}>
+          <FormControl isInvalid={!!errors.civil_status}>
+            <FormLabel>Estado Civil</FormLabel>
+            <InputGroup>
+              <Select
+                id="civil_status_select"
+                placeholder="Selecione seu estado civil"
+                {...register("civil_status", {
+                  required: "Selecione o seu estado civil",
+                })}
+              >
+                {civilStatus?.map((data) => {
+                  return (
+                    <option key={data.id} id={data.id.toString()} value={data.id}>
+                      {data.civil_status}
+                    </option>
+                  );
+                })}
+              </Select>
+            </InputGroup>
+            <FormErrorMessage>
+              {errors.civil_status && errors.civil_status.message}
+            </FormErrorMessage>
+          </FormControl>
+        </WrapItem>
 
       </Wrap>
     </Fragment>

@@ -1,12 +1,13 @@
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { createContext, useEffect, useState } from "react";
+import { setCookie } from "nookies";
+import { createContext, useState } from "react";
 import {
   InterClientContext,
   InterProviderProps,
+  UserType
 } from "./clientsContext.interface";
-import { parseCookies, setCookie } from "nookies";
-import { useToast } from "@chakra-ui/react";
 
 export const ClientContext = createContext({} as InterClientContext);
 
@@ -14,6 +15,8 @@ export function ClientProvider({ children }: InterProviderProps) {
   const toast = useToast();
   const urlApi = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const router = useRouter();
+  const [userData, setUserData] = useState<UserType>();
+  
 
   async function login(login: string, password: string): Promise<void> {
     axios
@@ -22,7 +25,7 @@ export function ClientProvider({ children }: InterProviderProps) {
         password: password,
       })
       .then(({data}): void => {
-        console.log(data)
+
         setCookie(null, "token", data.data.token, {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
@@ -31,8 +34,8 @@ export function ClientProvider({ children }: InterProviderProps) {
       })
       .catch(function (error) {
         toast({
-          title: "Erro",
-          description: error.response.data,
+          title: "Erro ao logar",
+          description: 'Login ou senha invalida',
           status: "error",
           duration: 5000,
           isClosable: true,
