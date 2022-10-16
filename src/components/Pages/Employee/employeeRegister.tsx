@@ -2,24 +2,25 @@ import {
   Box,
   Button, Text
 } from "@chakra-ui/react";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { EmployeeProvider } from "../../../services";
+import { EmployeeProvider, EmployeeContext } from "../../../services";
 import { Container } from "../../Container";
 import CustomDivider from "../../CustomDivider";
-import { EmployeeAddressFragment } from './employeeAddress';
-import { EmployeeDataFragment } from './employeeData';
+import { EmployeeRegisterFormValues } from "./employeeRegister.interface";
+import { EmployeeAddressFragment, EmployeeDataFragment } from './Fragment';
 
   export function EmployeeRegister(): JSX.Element {
     const methods = useForm();
+    const { saveStudantRegister } = useContext(EmployeeContext);
   
     const {
       handleSubmit,
       formState: { isSubmitting },
     } = methods;
   
-    async function onSubmit(data: any): Promise<void> {
-      console.log(JSON.stringify( data))
+    async function onSubmit(data: EmployeeRegisterFormValues): Promise<void> {
+      saveStudantRegister(data);
     }
   
     return (

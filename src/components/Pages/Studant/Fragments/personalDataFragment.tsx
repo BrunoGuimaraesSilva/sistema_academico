@@ -16,7 +16,7 @@ import moment from 'moment';
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
-import { StudantRegisterFormValues } from "./studantRegister.interface";
+import { StudantRegisterFormValues } from "../studantRegister.interface";
 
 export function PersonalDataFragment() {
   const {

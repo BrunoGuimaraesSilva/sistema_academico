@@ -1,19 +1,14 @@
 import { Box, Button, Text } from "@chakra-ui/react";
+import { Fragment, useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Fragment, useContext, useState } from "react";
 import { StudantProvider } from "../../../services";
 import { Container } from "../../Container";
 import CustomDivider from "../../CustomDivider";
 import { StudantContext } from './../../../services';
-import { FinancialFragment } from "./financial";
-import { FinancialAddressFragment } from "./financialAddressFragment";
-import { PersonAddressFragment } from "./personAddressFragment";
-import { PersonDataFragment } from "./personDataFragment";
-import { PersonalDataFragment } from "./personalDataFragment";
+import { FinancialAddressFragment, FinancialFragment, PersonAddressFragment, PersonalDataFragment, PersonDataFragment } from "./Fragments";
 import { StudantRegisterFormValues } from "./studantRegister.interface";
 
 export function StudantRegister() {
-  const [disableButton, setDisableButton] = useState<boolean>(true);
   const methods = useForm<StudantRegisterFormValues>();
   const { saveStudantRegister } = useContext(StudantContext);
   const {

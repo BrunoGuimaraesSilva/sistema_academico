@@ -5,25 +5,58 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import { Fragment } from "react";
+import { useContext, Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
-import { StudantRegisterFormValues } from "./studantRegister.interface";
+import { EmployeeContext } from '@/services/Employee/employeeContext';
+import { EmployeeRegisterFormValues } from "../employeeRegister.interface";
 
-export function PersonDataFragment() {
+
+export function EmployeeDataFragment(): JSX.Element {
+
+  const { profile } = useContext(EmployeeContext);
+
   const {
     register,
     formState: { errors },
-  } = useFormContext<StudantRegisterFormValues>();
+  } = useFormContext<EmployeeRegisterFormValues>();
 
   
   return (
     <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
+
+      <WrapItem w={"250px"} h={"100px"}>
+          <FormControl isInvalid={!!errors.profile}>
+            <FormLabel>Perfil</FormLabel>
+            <InputGroup>
+              <Select
+                id="id"
+                placeholder="Selecione seu perfil"
+                {...register("profile", {
+                  required: "Selecione o seu perfil",
+                })}
+              >
+                {profile?.map((data): JSX.Element => {
+                  return (
+                    <option key={data.id} id={data.id} value={data.id}>
+                      {data.profile}
+                    </option>
+                  );
+                })}
+              </Select>
+            </InputGroup>
+            <FormErrorMessage>
+              {errors.profile && errors.profile.message}
+            </FormErrorMessage>
+          </FormControl>
+        </WrapItem>
+
         <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.name}>
             <FormLabel>Nome</FormLabel>
@@ -91,8 +124,8 @@ export function PersonDataFragment() {
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
-{/* 
-        <WrapItem w={"250px"} h={"100px"}>
+
+        {/* <WrapItem w={"250px"} h={"100px"}>
           <FormControl isInvalid={!!errors.password}>
             <FormLabel>Senha</FormLabel>
             <InputGroup>

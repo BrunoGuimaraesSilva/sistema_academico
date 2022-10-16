@@ -1,8 +1,5 @@
 export * from './studantRegister'
 export * from './studantRegister.interface'
-export * from './personAddressFragment'
-export * from './financialAddressFragment'
-export * from './financial'
-export * from './personDataFragment'
+export * from './Fragments'
 export * from './studant'
-export * from './personalDataFragment'
+

@@ -14,15 +14,15 @@ import {
   WrapItem,
   useToast
 } from "@chakra-ui/react";
-import uf from "../../../assets/uf.json";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineHouse, MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
-import { StudantContext } from "../../../services";
-import { StudantRegisterFormValues } from "./studantRegister.interface";
+import uf from "../../../../assets/uf.json";
+import { StudantContext } from "../../../../services";
+import { StudantRegisterFormValues } from "../studantRegister.interface";
 
-export function FinancialAddressFragment(): JSX.Element {
+export function PersonAddressFragment() {
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const { getCepData } = useContext(StudantContext);
   const toast = useToast()
@@ -35,23 +35,23 @@ export function FinancialAddressFragment(): JSX.Element {
     formState: { errors },
   } = useFormContext<StudantRegisterFormValues>();
 
-  async function handleClick() {
-    await getCepData(getValues("cepFinancial"))
+  async function handleClickCepButton() {
+    await getCepData(getValues("cepStudant"))
       .then((value) => {
-        setValue("cityFinancial", value?.city ?? "", {
+        setValue("cityStudant", value?.city ?? "", {
           shouldValidate: value?.city ? true : false,
         });
-        setValue("neighborhoodFinancial", value?.neighborhood ?? "", {
+        setValue("neighborhoodStudant", value?.neighborhood ?? "", {
           shouldValidate: value?.neighborhood ? true : false,
         });
-        setValue("addressFinancial", value?.address ?? "", {
+        setValue("addressStudant", value?.address ?? "", {
           shouldValidate: value?.address ? true : false,
         });
-        setValue("stateFinancial", value?.state ?? "", {
+        setValue("stateStudant", value?.state ?? "", {
           shouldValidate: value?.state ? true : false,
         });
 
-        if(value?.erro == 'true'){
+        if (value?.erro == 'true') {
           toast({
             title: "Cep Inválido",
             description: "Digite um cep valido!",
@@ -61,13 +61,10 @@ export function FinancialAddressFragment(): JSX.Element {
           });
         }
       })
-      
-       
-     
   }
 
   useEffect(() => {
-    const value = getValues("cepFinancial");
+    const value = getValues("cepStudant");
     if (value) {
       if (value.indexOf("_") == -1) {
         setDisableButton(false);
@@ -81,7 +78,7 @@ export function FinancialAddressFragment(): JSX.Element {
     <Fragment>
       <Wrap justify='center' mt={15} spacing={5}>
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.cepFinancial}>
+          <FormControl isInvalid={!!errors.cepStudant}>
             <FormLabel>CEP</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -91,7 +88,7 @@ export function FinancialAddressFragment(): JSX.Element {
                 as={InputMask}
                 placeholder="Seu CEP"
                 mask="99999-999"
-                {...register("cepFinancial", {
+                {...register("cepStudant", {
                   required: "Preencha o campo de CEP",
                   minLength: 9,
                 })}
@@ -101,7 +98,7 @@ export function FinancialAddressFragment(): JSX.Element {
                   disabled={disableButton}
                   size="sm"
                   onClick={() => {
-                    handleClick();
+                    handleClickCepButton();
                   }}
                 >
                   <CheckIcon color="green.500" />
@@ -109,13 +106,13 @@ export function FinancialAddressFragment(): JSX.Element {
               </InputRightElement>
             </InputGroup>
             <FormErrorMessage>
-              {errors.cepFinancial && errors.cepFinancial.message}
+              {errors.cepStudant && errors.cepStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.cityFinancial}>
+          <FormControl isInvalid={!!errors.cityStudant}>
             <FormLabel>Cidade</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -123,25 +120,25 @@ export function FinancialAddressFragment(): JSX.Element {
               </InputLeftElement>
               <Input
                 placeholder="Seu Cidade"
-                {...register("cityFinancial", {
+                {...register("cityStudant", {
                   required: "Preencha o campo de Cidade",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {errors.cityFinancial && errors.cityFinancial.message}
+              {errors.cityStudant && errors.cityStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.stateFinancial}>
+          <FormControl isInvalid={!!errors.stateStudant}>
             <FormLabel>Estado</FormLabel>
             <InputGroup>
               <Select
                 id="country"
                 placeholder="Selecione seu estado"
-                {...register("stateFinancial", {
+                {...register("stateStudant", {
                   required: "Selecione o seu Estado",
                 })}
               >
@@ -155,13 +152,13 @@ export function FinancialAddressFragment(): JSX.Element {
               </Select>
             </InputGroup>
             <FormErrorMessage>
-              {errors.stateFinancial && errors.stateFinancial.message}
+              {errors.stateStudant && errors.stateStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.addressFinancial}>
+          <FormControl isInvalid={!!errors.addressStudant}>
             <FormLabel>Endereço</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -169,19 +166,19 @@ export function FinancialAddressFragment(): JSX.Element {
               </InputLeftElement>
               <Input
                 placeholder="Seu Endereço"
-                {...register("addressFinancial", {
+                {...register("addressStudant", {
                   required: "Preencha o campo de Endereço",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {errors.addressFinancial && errors.addressFinancial.message}
+              {errors.addressStudant && errors.addressStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.neighborhoodFinancial}>
+          <FormControl isInvalid={!!errors.neighborhoodStudant}>
             <FormLabel>Bairro</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -189,20 +186,19 @@ export function FinancialAddressFragment(): JSX.Element {
               </InputLeftElement>
               <Input
                 placeholder="Seu Bairro"
-                {...register("neighborhoodFinancial", {
+                {...register("neighborhoodStudant", {
                   required: "Preencha o campo de Bairro",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {errors.neighborhoodFinancial &&
-                errors.neighborhoodFinancial.message}
+              {errors.neighborhoodStudant && errors.neighborhoodStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
 
         <WrapItem w={"250px"} h={"100px"}>
-          <FormControl isInvalid={!!errors.numberFinancial}>
+          <FormControl isInvalid={!!errors.numberStudant}>
             <FormLabel>Numero da casa</FormLabel>
             <InputGroup>
               <InputLeftElement>
@@ -210,13 +206,13 @@ export function FinancialAddressFragment(): JSX.Element {
               </InputLeftElement>
               <Input
                 placeholder="Numero da casa"
-                {...register("numberFinancial", {
+                {...register("numberStudant", {
                   required: "Preencha o campo de numero da casa",
                 })}
               />
             </InputGroup>
             <FormErrorMessage>
-              {errors.numberFinancial && errors.numberFinancial.message}
+              {errors.numberStudant && errors.numberStudant.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>

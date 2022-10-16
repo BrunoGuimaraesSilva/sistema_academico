@@ -5,7 +5,8 @@ import {
   ClientProvider,
   LoadingProvider,
   ScreenControlProvider,
-  StudantProvider
+  StudantProvider,
+  EmployeeProvider
 } from "../services";
 import Loading from "./loading";
 import 'react-datepicker/dist/react-datepicker.css';
@@ -24,11 +25,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LoadingProvider>
         <ClientProvider>
         <StudantProvider>
+        <EmployeeProvider>
 
           <Loading />
           <ScreenControlProvider>
               <Component {...pageProps} />
           </ScreenControlProvider>
+        </EmployeeProvider>
         </StudantProvider>
         </ClientProvider>
       </LoadingProvider>

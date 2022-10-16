@@ -8,7 +8,8 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { FiMoon } from "react-icons/fi";
+import { useRouter } from "next/router";
+import { FiLogOut, FiMoon } from "react-icons/fi";
 import { FiSun } from "react-icons/fi";
 import { PersonFooterProps } from "./sidebar.interface";
 
@@ -18,6 +19,7 @@ export const PersonFooter: React.FC<PersonFooterProps> = ({
   title,
 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const router = useRouter()
 
   return (
     <Flex
@@ -58,6 +60,14 @@ export const PersonFooter: React.FC<PersonFooterProps> = ({
         >
           {colorMode === "light" ? "Dark" : "Light"}
         </IconButton>
+        <IconButton
+          onClick={ () => {           router.push('/login')}}
+          aria-label={""}
+          icon={<FiLogOut/>}
+        >
+          {colorMode === "light" ? "Dark" : "Light"}
+        </IconButton>
+
       </HStack>
     </Flex>
   );

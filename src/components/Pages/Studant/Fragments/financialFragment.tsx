@@ -10,7 +10,7 @@ import { Fragment } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
-import { StudantRegisterFormValues } from "./studantRegister.interface";
+import { StudantRegisterFormValues } from "../studantRegister.interface";
 
 export function FinancialFragment(): JSX.Element {
 

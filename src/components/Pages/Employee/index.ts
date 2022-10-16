@@ -1,2 +1,3 @@
 export * from './employeeRegister'
-export * from './employeeData'
+export * from './employee'
+export * from './Fragment'

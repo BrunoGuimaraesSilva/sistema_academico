@@ -101,7 +101,6 @@ export default function ListagemEstudantes() {
                 setAddressId(data?.address_id)
             })
         }
-
     }
 
 
