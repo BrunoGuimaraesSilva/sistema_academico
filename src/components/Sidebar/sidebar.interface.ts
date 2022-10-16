@@ -1,3 +1,4 @@
+import { UserData } from "@/services";
 import { BoxProps, FlexProps } from "@chakra-ui/react";
 import { ReactText } from "react";
 import { IconType } from "react-icons";
@@ -11,6 +12,7 @@ export interface LinkItemProps {
 export interface SidebarProps extends BoxProps {
   onClose: () => void;
   LinkItem: Array<LinkItemProps>;
+  userData: UserData
 }
 
 export interface NavItemProps extends FlexProps {
@@ -25,5 +27,4 @@ export interface MobileProps extends FlexProps {
 export interface PersonFooterProps {
   avatar: string;
   name: string;
-  title: string;
 }

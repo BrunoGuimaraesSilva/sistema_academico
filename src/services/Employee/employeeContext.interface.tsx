@@ -10,6 +10,7 @@ export interface EmployeeContextProps {
   profile?: ProfileType[];
   getCepData(dados?: string): Promise<CepType | undefined>;
   getAllEmployee(): Promise<void>;
+  getAllProfiles(): Promise<void>;
   allEmployees?: EmployeeType[];
   inactivateEmployee(id: number | undefined): Promise<void>;
   activateEmployee(id: number | undefined): Promise<void>;

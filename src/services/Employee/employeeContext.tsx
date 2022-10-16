@@ -28,14 +28,24 @@ export function EmployeeProvider({ children }: EmployeeProviderProps) {
 
 
 
-  useEffect(() => {
-    if (!profile) {
-      axios.get(urlApi + `/profile`, config).then((res): void => {
-        setProfile(res.data);
-      });
-    }
 
-  }, []);
+
+  async function getAllProfiles(): Promise<void> {
+    if (!profile) {
+      try {
+        const res = await axios.get(urlApi + `/profile`, config)
+        setProfile(res.data);
+      } catch (error) {
+        toast({
+          title: 'Erro ao buscar os estudantes',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+    }
+  }
+
 
   async function getAllEmployee(): Promise<void> {
     try {
@@ -179,6 +189,7 @@ export function EmployeeProvider({ children }: EmployeeProviderProps) {
         allEmployees,
         getCepData,
         getAllEmployee,
+        getAllProfiles,
         inactivateEmployee,
         activateEmployee,
         getEmployeeData,

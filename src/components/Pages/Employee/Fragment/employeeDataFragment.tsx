@@ -9,7 +9,7 @@ import {
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import { useContext, Fragment } from "react";
+import { useContext, Fragment, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdOutlineLocationCity } from "react-icons/md";
 import InputMask from "react-input-mask";
@@ -19,7 +19,11 @@ import { EmployeeRegisterFormValues } from "../employeeRegister.interface";
 
 export function EmployeeDataFragment(): JSX.Element {
 
-  const { profile } = useContext(EmployeeContext);
+  const { profile, getAllProfiles } = useContext(EmployeeContext);
+
+  useEffect(() => {
+    getAllProfiles();
+  }, []);
 
   const {
     register,

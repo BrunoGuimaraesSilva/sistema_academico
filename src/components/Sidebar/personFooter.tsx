@@ -16,7 +16,6 @@ import { PersonFooterProps } from "./sidebar.interface";
 export const PersonFooter: React.FC<PersonFooterProps> = ({
   avatar,
   name,
-  title,
 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter()
@@ -49,9 +48,9 @@ export const PersonFooter: React.FC<PersonFooterProps> = ({
           <Text fontSize="sm" color={useColorModeValue("black", "white")}>
             {name}
           </Text>
-          <Text fontSize="xs" color={useColorModeValue("black", "white")}>
+          {/* <Text fontSize="xs" color={useColorModeValue("black", "white")}>
             {title}
-          </Text>
+          </Text> */}
         </VStack>
         <IconButton
           onClick={toggleColorMode}
@@ -61,9 +60,9 @@ export const PersonFooter: React.FC<PersonFooterProps> = ({
           {colorMode === "light" ? "Dark" : "Light"}
         </IconButton>
         <IconButton
-          onClick={ () => {           router.push('/login')}}
+          onClick={() => { router.push('/login') }}
           aria-label={""}
-          icon={<FiLogOut/>}
+          icon={<FiLogOut />}
         >
           {colorMode === "light" ? "Dark" : "Light"}
         </IconButton>

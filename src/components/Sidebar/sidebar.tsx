@@ -12,11 +12,14 @@ import logo_black from "../../assets/logo_black.svg";
 import { NavItem } from "./navItem";
 import { PersonFooter } from "./personFooter";
 import { LinkItemProps, MobileProps, SidebarProps } from "./sidebar.interface";
+import { UserData } from "@/services";
 
 
 
-const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, LinkItem, userData, ...rest }: SidebarProps) => {
   const router = useRouter()
+  const name = userData.name;
+
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -54,8 +57,7 @@ const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
           avatar={
             "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
           }
-          name={"Bruno"}
-          title={"Professor"}
+          name={name ? name : ''}
         />
       </Box>
     </Box>
@@ -92,9 +94,11 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 export default function Sidebar({
   children,
   linkItems,
+  userData
 }: {
   children: ReactNode;
   linkItems: Array<LinkItemProps>;
+  userData: UserData
 }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -104,6 +108,7 @@ export default function Sidebar({
         onClose={() => onClose}
         display={{ base: "none", lg: "block" }}
         LinkItem={linkItems}
+        userData={userData}
       />
       <Drawer
         autoFocus={false}
@@ -115,7 +120,7 @@ export default function Sidebar({
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} LinkItem={linkItems} />
+          <SidebarContent onClose={onClose} LinkItem={linkItems} userData={userData}/>
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: "flex", lg: "none" }} onOpen={onOpen} />

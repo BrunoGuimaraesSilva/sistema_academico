@@ -4,11 +4,13 @@ export interface InterProviderProps {
   children: ReactNode;
 }
 
-export interface InterClientContext {
-  login(login: string, password: string): Promise<void>;
+export interface UserData{
+  token: string,
+  profile: string,
+  name: string
 }
 
-export interface UserType {
-  ra: number;
-  name: string;
+export interface InterClientContext {
+  login(login: string, password: string): Promise<void>;
+  userData: UserData
 }

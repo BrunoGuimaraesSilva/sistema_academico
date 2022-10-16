@@ -6,7 +6,7 @@ import { createContext, useState } from "react";
 import {
   InterClientContext,
   InterProviderProps,
-  UserType
+  UserData
 } from "./clientsContext.interface";
 
 export const ClientContext = createContext({} as InterClientContext);
@@ -15,18 +15,19 @@ export function ClientProvider({ children }: InterProviderProps) {
   const toast = useToast();
   const urlApi = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const router = useRouter();
-  const [userData, setUserData] = useState<UserType>();
+  const [userData, setUserData] = useState<UserData>();
   
 
   async function login(login: string, password: string): Promise<void> {
     axios
       .post(`${urlApi}/auth/login`, {
-        email: login,
+        user: login,
         password: password,
       })
       .then(({data}): void => {
 
-        setCookie(null, "token", data.data.token, {
+          setUserData(data.data)
+          setCookie(null, "token", data.data.token, {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
         });
@@ -46,7 +47,8 @@ export function ClientProvider({ children }: InterProviderProps) {
   return (
     <ClientContext.Provider
       value={{
-        login
+        login,
+        userData
       }}
     >
       {children}

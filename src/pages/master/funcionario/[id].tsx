@@ -16,7 +16,6 @@ export default function ListEmployee() {
     const { LinkItems } = useContext(ScreenControlContext);
     const router = useRouter()
     const { id: number, page } = router.query
-    console.log(number)
     const idUser: number = number ? +number : 0
     const methods = useForm<EmployeeRegisterFormValues>();
 

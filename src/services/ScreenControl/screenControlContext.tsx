@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { createContext, useState } from "react";
-import { FiHome, FiTrendingUp } from "react-icons/fi";
+import { FiCommand, FiHome, FiTrendingUp } from "react-icons/fi";
 import { LinkItemProps } from "../../components";
 import {
   ScreenControlContextProps,
@@ -19,6 +19,7 @@ export function ScreenControlProvider({ children }: ScreenControlProviderProps) 
   }
 
   const LinkItems: Array<LinkItemProps> = [
+    { name: "Dashboard", icon: FiCommand, route: '/master/dashboard' },
     { name: "Estudantes", icon: FiHome, route: '/master/estudante' },
     { name: "Funcionarios", icon: FiTrendingUp, route: '/master/funcionario' },
   ];

@@ -64,16 +64,16 @@ export default function Login() {
               <Heading fontSize={"2xl"}>Login</Heading>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl h={"100px"} isInvalid={!!errors.email}>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Login</FormLabel>
                   <InputGroup>
                     <InputLeftElement>
                       <MdOutlineEmail />
                     </InputLeftElement>
                     <Input
-                      type="email"
-                      placeholder="Seu Email"
+                      type="text"
+                      placeholder="Login"
                       {...register("email", {
-                        required: "Preencha o campo de E-mail",
+                        required: "Preencha o campo de Login",
                       })}
                     />
                   </InputGroup>

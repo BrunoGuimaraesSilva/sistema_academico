@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { StudantPage } from "components";
 import Sidebar from "components/Sidebar/sidebar";
-import { ScreenControlContext } from "services";
+import { ClientContext, ScreenControlContext } from "services";
 
 export default function ListagemEstudantes() {
   const { LinkItems } = useContext(ScreenControlContext);
+  const { userData } = useContext(ClientContext);
 
   return (
-    <Sidebar linkItems={LinkItems}>
+    <Sidebar userData={userData} linkItems={LinkItems}>
       <StudantPage/>
     </Sidebar>
   );

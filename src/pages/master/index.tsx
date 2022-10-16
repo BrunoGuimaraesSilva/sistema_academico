@@ -1,10 +1,11 @@
 import Sidebar from "components/Sidebar/sidebar";
 import { useContext } from "react";
-import { ScreenControlContext } from "services";
+import { ClientContext, ScreenControlContext } from "services";
 
 export default function Dashboard(): JSX.Element {
   const { LinkItems } = useContext(ScreenControlContext);
+  const { userData } = useContext(ClientContext);
   return (
-    <Sidebar linkItems={LinkItems}><></></Sidebar>
+    <Sidebar userData={userData} linkItems={LinkItems}><></></Sidebar>
   );
 }
