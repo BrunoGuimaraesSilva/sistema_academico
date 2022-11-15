@@ -2,13 +2,11 @@ import { GButton } from "@/components/Button";
 import CustomDivider from "@/components/CustomDivider";
 import { StudantContext } from "@/services";
 import { StudantType } from "@/services/Studant/inputs";
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
-  Box, List,
-  ListIcon,
-  Icon,
-  ListItem,
-  Modal,
+  Box, Button, Icon, IconProps, List,
+  ListIcon, ListItem, Menu,
+  MenuButton, MenuItem, MenuList, Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
@@ -21,25 +19,33 @@ import {
   Text, Th,
   Thead,
   Tr,
-  useDisclosure,
-  Wrap,
-  WrapItem,
-  IconProps,
-  Menu,
-  MenuButton,
-  Button,
-  MenuList,
-  MenuItem,
-  IconButton
+  useDisclosure
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from 'react';
 import { MdCheckCircle } from "react-icons/md";
 import { CPFMask, PhoneMask } from '../../../utils/formaters';
 
-export function StudantPage(): JSX.Element {
-  const { getAllStudants, allStudants, inactivateStudant, activateStudant } = useContext(StudantContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export function StudantPageTeacher(): JSX.Element {
+  const { getAllStudants, allStudants } = useContext(StudantContext);
+  const {
+    isOpen: isOpenResume,
+    onOpen: onOpenResume,
+    onClose: onCloseResume
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenAbsence,
+    onOpen: onOpenAbsence,
+    onClose: onCloseAbsence
+  } = useDisclosure();
+  
+  const {
+    isOpen: isOpenNotes,
+    onOpen: onOpenNotes,
+    onClose: onCloseNotes
+  } = useDisclosure();
+
   const [studant, setStudant] = useState<StudantType>();
   const router = useRouter();
 
@@ -59,9 +65,6 @@ export function StudantPage(): JSX.Element {
   return (
     <>
       <Box mt={10} pl={'5%'} pr={'5%'}>
-        <GButton ml='auto' mr="0" display='block' onClick={() => { router.push(`estudante/cadastro`) }}>
-          Cadastro de Aluno
-        </GButton>
         <TableContainer>
           <Table size={'sm'} variant="simple">
             <Thead>
@@ -69,7 +72,7 @@ export function StudantPage(): JSX.Element {
                 <Th>Ativo</Th>
                 <Th isNumeric>RA</Th>
                 <Th>Nome</Th>
-                <Th>CPF</Th>
+                <Th>Aniversário</Th>
                 <Th>Telefone</Th>
                 <Th>Ações</Th>
               </Tr>
@@ -82,7 +85,7 @@ export function StudantPage(): JSX.Element {
                       <Td>{element.status === 0 ? (<CircleIcon boxSize={8} color='red.500' />) : (<CircleIcon boxSize={8} color='green.500' />)}  </Td>
                       <Td isNumeric>{element.id}</Td>
                       <Td>{element.name}</Td>
-                      <Td>{CPFMask(element.cpf ?? '')}</Td>
+                      <Td>{element.birth_date ?? ''}</Td>
                       <Td>{PhoneMask(element.phone ?? '')}</Td>
                       <Td>
                         <Menu>
@@ -90,17 +93,14 @@ export function StudantPage(): JSX.Element {
                             Ações
                           </MenuButton>
                           <MenuList>
-                            <MenuItem onClick={() => { onOpen(), setStudant(element), console.log(element) }}>
+                            <MenuItem onClick={() => { onOpenResume(), setStudant(element) }}>
                               Resumo
                             </MenuItem>
-                            <MenuItem onClick={() => { router.push(`estudante/${element.id}?page=pessoais`) }}>
-                              Editar Dados
+                            <MenuItem onClick={() => { onOpenAbsence() }}>
+                              Lançamento de faltas
                             </MenuItem>
-                            <MenuItem onClick={() => { router.push(`estudante/${element.financial_id}?page=financeiro`) }}>
-                              Editar Financeiro
-                            </MenuItem>
-                            <MenuItem onClick={() => { element.status === 0 ? activateStudant(element.id) : inactivateStudant(element.id) }}>
-                              {element.status === 0 ? (<Text> Ativar Aluno</Text>) : (<Text> Inativar Aluno</Text>)}
+                            <MenuItem onClick={() => { onOpenNotes() }}>
+                              Lançamento de notas
                             </MenuItem>
                           </MenuList>
                         </Menu>
@@ -116,7 +116,7 @@ export function StudantPage(): JSX.Element {
       </Box>
 
 
-      <Modal size={'xl'} isOpen={isOpen} onClose={onClose}>
+      <Modal size={'xl'} isOpen={isOpenResume} onClose={onCloseResume}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Dados Pessoais</ModalHeader>
@@ -133,40 +133,55 @@ export function StudantPage(): JSX.Element {
               </ListItem>
               <ListItem>
                 <ListIcon as={MdCheckCircle} color='green.500' />
-                CPF: {CPFMask(studant?.cpf ?? '')}
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
                 Telefone: {PhoneMask(studant?.phone ?? '')}
               </ListItem>
               <ListItem>
                 <ListIcon as={MdCheckCircle} color='green.500' />
                 Data Aniversario: {studant?.birth_date}
               </ListItem>
-              <CustomDivider>
-                <Text>Endereço:</Text>
-              </CustomDivider>
               <ListItem>
                 <ListIcon as={MdCheckCircle} color='green.500' />
                 Cidade: {studant?.city} - {studant?.state}
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
-                Endereço: {studant?.address}
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
-                Bairro: {studant?.neighborhood}
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
-                Número: {studant?.number}
               </ListItem>
             </List>
           </ModalBody>
 
           <ModalFooter>
-            <GButton colorScheme='blue' mr={3} onClick={onClose}>
+            <GButton colorScheme='blue' mr={3} onClick={onCloseResume}>
+              Fechar
+            </GButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal size={'xl'} isOpen={isOpenAbsence} onClose={onCloseAbsence}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Faltas</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            
+          </ModalBody>
+
+          <ModalFooter>
+            <GButton colorScheme='blue' mr={3} onClick={onCloseAbsence}>
+              Fechar
+            </GButton>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal size={'xl'} isOpen={isOpenNotes} onClose={onCloseNotes}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Notas</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            
+          </ModalBody>
+
+          <ModalFooter>
+            <GButton colorScheme='blue' mr={3} onClick={onCloseNotes}>
               Fechar
             </GButton>
           </ModalFooter>

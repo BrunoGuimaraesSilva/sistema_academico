@@ -6,7 +6,7 @@ import Sidebar from "components/Sidebar/sidebar";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ScreenControlContext, StudantContext } from "services";
+import { ClientContext, ScreenControlContext, StudantContext } from "services";
 
 export default function ListagemEstudantes() {
     const { getStudantPersonData, getStudantFinancialData, editStudant, editFinancial } = useContext(StudantContext);
@@ -17,6 +17,7 @@ export default function ListagemEstudantes() {
     const { id: number, page } = router.query
     const idUser: number = number ? +number : 0
     const methods = useForm<StudantRegisterFormValues>();
+    const { userData } = useContext(ClientContext);
 
     const {
         handleSubmit,
@@ -148,7 +149,7 @@ export default function ListagemEstudantes() {
     }
 
     return (
-        <Sidebar linkItems={LinkItems}>
+        <Sidebar linkItems={LinkItems} userData={userData}>
             <Box mt={10} pl={'10%'} pr={'10%'}>
                 <GButton onClick={() => router.back()}>
                     <ChevronLeftIcon />

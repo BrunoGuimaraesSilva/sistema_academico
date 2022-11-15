@@ -21,6 +21,9 @@ export function ScreenControlProvider({ children }: ScreenControlProviderProps) 
   const LinkItems: Array<LinkItemProps> = [
     { name: "Dashboard", icon: FiCommand, route: '/master/dashboard' },
     { name: "Estudantes", icon: FiHome, route: '/master/estudante' },
+    { name: "Cursos", icon: FiTrendingUp, route: '/master/cursos' },
+    { name: "Disciplina", icon: FiTrendingUp, route: '/master/disciplinas' },
+    { name: "Periodo", icon: FiTrendingUp, route: '/master/periodos' },
     { name: "Funcionarios", icon: FiTrendingUp, route: '/master/funcionario' },
   ];
 

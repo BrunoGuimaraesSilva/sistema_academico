@@ -16,7 +16,7 @@ export function ClientProvider({ children }: InterProviderProps) {
   const urlApi = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const router = useRouter();
   const [userData, setUserData] = useState<UserData>();
-  
+
 
   async function login(login: string, password: string): Promise<void> {
     axios
@@ -24,13 +24,18 @@ export function ClientProvider({ children }: InterProviderProps) {
         user: login,
         password: password,
       })
-      .then(({data}): void => {
-
-          setUserData(data.data)
-          setCookie(null, "token", data.data.token, {
+      .then(({ data }): void => {
+        setUserData(data)
+        setCookie(null, "token", data.access_token, {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
         });
+
+        setCookie(null, "name", data.user_data.name, {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+        });
+
         router.push("/master");
       })
       .catch(function (error) {

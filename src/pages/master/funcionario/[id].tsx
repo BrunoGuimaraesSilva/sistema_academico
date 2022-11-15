@@ -7,7 +7,7 @@ import Sidebar from "components/Sidebar/sidebar";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { EmployeeContext, ScreenControlContext } from "services";
+import { ClientContext, EmployeeContext, ScreenControlContext } from "services";
 
 export default function ListEmployee() {
     const { getEmployeeData, editEmployee } = useContext(EmployeeContext);
@@ -18,6 +18,7 @@ export default function ListEmployee() {
     const { id: number, page } = router.query
     const idUser: number = number ? +number : 0
     const methods = useForm<EmployeeRegisterFormValues>();
+    const { userData } = useContext(ClientContext);
 
     const {
         handleSubmit,
@@ -66,7 +67,7 @@ export default function ListEmployee() {
 
 
     return (
-        <Sidebar linkItems={LinkItems}>
+        <Sidebar linkItems={LinkItems} userData={userData}>
             <Box mt={10} pl={'10%'} pr={'10%'}>
                 <GButton onClick={() => router.back()}>
                     <ChevronLeftIcon />

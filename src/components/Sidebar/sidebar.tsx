@@ -13,12 +13,12 @@ import { NavItem } from "./navItem";
 import { PersonFooter } from "./personFooter";
 import { LinkItemProps, MobileProps, SidebarProps } from "./sidebar.interface";
 import { UserData } from "@/services";
-
-
+import { parseCookies } from "nookies";
 
 const SidebarContent = ({ onClose, LinkItem, userData, ...rest }: SidebarProps) => {
   const router = useRouter()
-  const name = userData.name;
+  const cookies = parseCookies();
+  const name = cookies.name;
 
   return (
     <Box
