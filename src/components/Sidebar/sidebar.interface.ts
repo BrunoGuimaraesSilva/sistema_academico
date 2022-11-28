@@ -12,7 +12,6 @@ export interface LinkItemProps {
 export interface SidebarProps extends BoxProps {
   onClose: () => void;
   LinkItem: Array<LinkItemProps>;
-  userData: UserData
 }
 
 export interface NavItemProps extends FlexProps {

@@ -22,5 +22,5 @@ export interface UserData {
 
 export interface InterClientContext {
   login(login: string, password: string): Promise<void>;
-  userData: UserData
+  userData?: UserData
 }

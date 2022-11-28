@@ -5,10 +5,9 @@ import { ClientContext, ScreenControlContext } from "services";
 
 export default function ListagemEstudantes() {
   const { LinkItems } = useContext(ScreenControlContext);
-  const { userData } = useContext(ClientContext);
 
   return (
-    <Sidebar userData={userData} linkItems={LinkItems}>
+    <Sidebar linkItems={LinkItems}>
       <StudantPage/>
     </Sidebar>
   );

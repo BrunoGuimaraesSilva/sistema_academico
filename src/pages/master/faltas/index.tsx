@@ -1,14 +1,17 @@
 import { useContext } from "react";
-import { StudantPageTeacher } from "components";
+import { StudantPage } from "components";
 import Sidebar from "components/Sidebar/sidebar";
 import { ClientContext, ScreenControlContext } from "services";
+import { AbsenceProvider, AbsencePage } from "components";
 
-export default function ListagemEstudantes() {
+export default function Absence() {
   const { LinkItems } = useContext(ScreenControlContext);
 
   return (
     <Sidebar linkItems={LinkItems}>
-      <StudantPageTeacher/>
+      <AbsenceProvider>
+      <AbsencePage/>
+      </AbsenceProvider>
     </Sidebar>
   );
 }

@@ -15,7 +15,7 @@ import { LinkItemProps, MobileProps, SidebarProps } from "./sidebar.interface";
 import { UserData } from "@/services";
 import { parseCookies } from "nookies";
 
-const SidebarContent = ({ onClose, LinkItem, userData, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, LinkItem, ...rest }: SidebarProps) => {
   const router = useRouter()
   const cookies = parseCookies();
   const name = cookies.name;
@@ -94,11 +94,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 export default function Sidebar({
   children,
   linkItems,
-  userData
 }: {
   children: ReactNode;
   linkItems: Array<LinkItemProps>;
-  userData: UserData
 }): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -108,7 +106,6 @@ export default function Sidebar({
         onClose={() => onClose}
         display={{ base: "none", lg: "block" }}
         LinkItem={linkItems}
-        userData={userData}
       />
       <Drawer
         autoFocus={false}
@@ -120,7 +117,7 @@ export default function Sidebar({
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} LinkItem={linkItems} userData={userData}/>
+          <SidebarContent onClose={onClose} LinkItem={linkItems}/>
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: "flex", lg: "none" }} onOpen={onOpen} />

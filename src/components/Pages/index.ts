@@ -1,3 +1,6 @@
 export * from './Studant'
 export * from './Employee'
 export * from './Period'
+export * from './Dashboard'
+export * from './Absence'
+export * from './Notes'

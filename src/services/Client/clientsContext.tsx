@@ -25,11 +25,24 @@ export function ClientProvider({ children }: InterProviderProps) {
         password: password,
       })
       .then(({ data }): void => {
+
+        if (typeof window !== "undefined") {
+
+          localStorage.setItem('disciplines', JSON.stringify(data.disciplines))
+          
+        }
+          
+
         setUserData(data)
         setCookie(null, "token", data.access_token, {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
         });
+
+        // setCookie(null, "disciplines", data.user_data.disciplines, {
+        //   maxAge: 30 * 24 * 60 * 60,
+        //   path: "/",
+        // });
 
         setCookie(null, "name", data.user_data.name, {
           maxAge: 30 * 24 * 60 * 60,
