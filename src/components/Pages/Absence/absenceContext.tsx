@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import { createContext } from "react";
-import { bodyToSaveAbsence, converterToEditAbsence } from "./outputBoundery";
+import { BodyToSaveAbsence, converterToEditAbsence } from "./outputBoundery";
 
 export interface AbsenceProviderProps {
   children: JSX.Element;
@@ -38,7 +38,7 @@ export interface ClassType {
 }
 
 export interface AbsenceContextProps {
-  saveAbsenceStudents(body: bodyToSaveAbsence): Promise<void>;
+  saveAbsenceStudents(body: BodyToSaveAbsence): Promise<void>;
   getPeriod(disciplineId: number): Promise<PeriodType[] | undefined>;
   getClass(disciplineId: number): Promise<ClassType[] | undefined>;
 }
@@ -96,7 +96,7 @@ export function AbsenceProvider({ children }: AbsenceProviderProps) {
     }
   }
 
-  async function saveAbsenceStudents(body: bodyToSaveAbsence): Promise<void> {
+  async function saveAbsenceStudents(body: BodyToSaveAbsence): Promise<void> {
     const value = converterToEditAbsence(body);
     axios
       .put(

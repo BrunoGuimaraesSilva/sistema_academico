@@ -14,7 +14,7 @@ export default function Dashboard(): JSX.Element {
     const router = useRouter()
 
     return (
-        <Sidebar linkItems={LinkItems} userData={userData}>
+        <Sidebar linkItems={LinkItems}>
             <Box p={10}>
                 <GButton onClick={() => router.back()}>
                     <ChevronLeftIcon />

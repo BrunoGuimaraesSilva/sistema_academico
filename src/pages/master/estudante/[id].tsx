@@ -149,7 +149,7 @@ export default function ListagemEstudantes() {
     }
 
     return (
-        <Sidebar linkItems={LinkItems} userData={userData}>
+        <Sidebar linkItems={LinkItems}>
             <Box mt={10} pl={'10%'} pr={'10%'}>
                 <GButton onClick={() => router.back()}>
                     <ChevronLeftIcon />
