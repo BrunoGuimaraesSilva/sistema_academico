@@ -32,12 +32,32 @@ export interface GroupByStudents {
   name: string;
   element: StudentObject[];
 }
-export interface DashboardContextProps {
-  getStudents(id: number): Promise<GroupByStudents[] | undefined>;
+export interface StudentAbsence {
+  id: number;
+  absence: number;
+  justification: string;
+  discipline_id: number;
+  period_id: number;
+  student_id: number;
+  class_id: number;
+  created_at: Date;
+  updated_at: Date;
+  name: string;
+  discipline_name: string;
+  description: string;
+}
+
+export interface GroupByStudentsAbsence {
+  id: number;
+  student_id: number;
+  absences: number;
 }
 
 
-
+export interface DashboardContextProps {
+  getStudents(id: number): Promise<GroupByStudents[] | undefined>;
+  getStudentsAbsences(id: number): Promise<GroupByStudentsAbsence[] | undefined>;
+}
 
 export const DashboardContext = createContext({} as DashboardContextProps);
 
@@ -58,19 +78,42 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
       if (!temp.includes(o.student_id)) {
         temp.push(o.student_id);
         const object = data.filter((t) => t.student_id === o.student_id);
-        
+
         object.map((data, index) => {
-          const first = data.first_job + data.first_test
+          const first = data.first_job + data.first_test;
           const second = data.second_job + data.second_test;
-          const approveResult =(first + second) / 2 >= 7
+          const approveResult = (first + second) / 2 >= 7;
           object[index].studentApprove = approveResult;
-        })
+        });
 
         result.push({
           student_id: o.student_id,
           name: o.name,
           discipline_name: o.discipline_name,
           element: object,
+        });
+      }
+    });
+    return result;
+  }
+
+  function agroupStudentAbsence(data: StudentAbsence[]): GroupByStudentsAbsence[] {
+    const temp: any[] = [];
+    const result: any[] = [];
+
+    data.map((o) => {
+      if (!temp.includes(o.student_id)) {
+        temp.push(o.student_id);
+        const object = data.filter((t) => t.student_id === o.student_id);
+        const absences: number[] = []
+        object.map((data) => {
+          absences.push(data.absence)
+        })
+
+        const sum = absences.reduce((partialSum, a) => partialSum + a, 0);
+        result.push({
+          student_id: o.student_id,
+          absences: sum
         });
       }
     });
@@ -97,16 +140,17 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
     }
   }
 
-  async function saveNotesStudents(
+  async function getStudentsAbsences(
     id: number
-  ): Promise<GroupByStudents[] | undefined> {
+  ): Promise<GroupByStudentsAbsence[] | undefined> {
     try {
       const res = await axios.get(
-        `${urlApi}/studentgrade/discipline/${id}`,
+        `${urlApi}/studentabsence/discipline/${id}`,
         config
       );
-      const responseData: StudentObject[] = res.data;
-      return agroupStudent(responseData);
+      const responseData: StudentAbsence[] = res.data;
+      const result = agroupStudentAbsence(responseData);
+      return result ?? []
     } catch (error) {
       toast({
         title: "Erro ao buscar os dados",
@@ -121,6 +165,7 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
     <DashboardContext.Provider
       value={{
         getStudents,
+        getStudentsAbsences,
       }}
     >
       {children}

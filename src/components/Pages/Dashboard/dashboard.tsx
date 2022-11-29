@@ -17,7 +17,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { DashboardContext, GroupByStudents } from "./dashboardContext";
+import { DashboardContext, GroupByStudents, GroupByStudentsAbsence } from "./dashboardContext";
 
 export interface DisciplinesObject {
   discipline_name: string;
@@ -25,9 +25,10 @@ export interface DisciplinesObject {
 }
 
 export function DashboardPage(): JSX.Element {
-  const { getStudents } = useContext(DashboardContext);
+  const { getStudents,getStudentsAbsences } = useContext(DashboardContext);
   const [disciplines, setDisciplines] = useState<[DisciplinesObject]>();
   const [allStudentGrade, setStudentGrade] = useState<GroupByStudents[]>();
+  const [allStudentAbsence, setStudentAbsence] = useState<GroupByStudentsAbsence[]>([]);
 
   useEffect(() => {
     const item: [DisciplinesObject] = JSON.parse(
@@ -38,7 +39,10 @@ export function DashboardPage(): JSX.Element {
 
   async function handleClick(id: number) {
     const studentGradeData = await getStudents(id);
+    const studentAbsencesData = await getStudentsAbsences(id);
     setStudentGrade(studentGradeData);
+    setStudentAbsence(studentAbsencesData ?? []);
+    console.log(studentAbsencesData)
   }
 
   const CircleIcon = (props: IconProps) => (
@@ -103,6 +107,7 @@ export function DashboardPage(): JSX.Element {
                                     <Th>Segunda Prova</Th>
                                     <Th>Primeiro Trabalho</Th>
                                     <Th>Segundo Trabalho</Th>
+                                    <Th>Faltas</Th>
                                     <Th>Aprovado</Th>
                                   </Tr>
                                 </Thead>
@@ -114,6 +119,7 @@ export function DashboardPage(): JSX.Element {
                                       <Td>{newData.second_test}</Td>
                                       <Td>{newData.first_job}</Td>
                                       <Td>{newData.second_job}</Td>
+                                      <Td>{allStudentAbsence?.find(x => x.student_id === newData.student_id)?.absences}</Td>
                                       <Td>
                                         {newData.studentApprove ? (
                                           <CircleIcon

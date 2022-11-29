@@ -100,7 +100,7 @@ export function AbsenceProvider({ children }: AbsenceProviderProps) {
     const value = converterToEditAbsence(body);
     axios
       .put(
-        `${urlApi}/studentabsence/${body.ids_period_discipline_class.discipline_id}/${body.ids_period_discipline_class.period_id}`,
+        `${urlApi}/studentabsence/${body.ids_period_discipline_class.discipline_id}/${body.ids_period_discipline_class.period_id}/${body.ids_period_discipline_class.class_id}`,
         value,
         config
       )
