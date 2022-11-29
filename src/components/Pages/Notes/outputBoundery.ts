@@ -43,8 +43,8 @@ export function converterToSaveNotesFirstGrade(
 ): StudentsTestFirst {
   const firstTest = data.students_notes.first_test;
   const firstJob = data.students_notes.first_job;
-  const firstJobResult = new Array();
-  const firstTestResult = new Array();
+  const firstJobResult: any[] = [];
+  const firstTestResult: any[] = [];
   firstTest.shift();
   firstJob.shift();
 
@@ -73,9 +73,9 @@ export function converterToSaveNotesSecondGrade(
 ): StudentsTestSecond {
   const secondTest = data.students_notes.second_test;
   const secondJob = data.students_notes.second_job;
-  const secondJobResult = new Array();
-  const secondTestResult = new Array();
-  const presenceGardeResult = new Array();
+  const secondJobResult: any[] = [];
+  const secondTestResult: any[] = [];
+  const presenceGardeResult: any[] = [];
   secondTest.shift();
   secondJob.shift();
 

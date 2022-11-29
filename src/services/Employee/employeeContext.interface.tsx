@@ -16,6 +16,6 @@ export interface EmployeeContextProps {
   activateEmployee(id: number | undefined): Promise<void>;
   getEmployeeData(id: number): Promise<EmployeeType | undefined>;
   editEmployee(data: EmployeeRegisterFormValues): Promise<void>;
-  saveStudantRegister(data: EmployeeRegisterFormValues): Promise<void>
+  saveStudantRegister(data: EmployeeRegisterFormValues): Promise<void>;
 }
 

@@ -21,7 +21,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AbsenceContext, ClassType, PeriodType } from "./absenceContext";
-import { bodyToSaveAbsence } from "./outputBoundery";
+import { BodyToSaveAbsence } from "./outputBoundery";
 
 interface DisciplinesObject {
   discipline_name: string;
@@ -47,7 +47,7 @@ export function AbsencePage(): JSX.Element {
   console.log(watch());
 
   const onSubmit: SubmitHandler<number[]> = (data) => {
-    const arrayToSend: bodyToSaveAbsence = {
+    const arrayToSend: BodyToSaveAbsence = {
       students_id: data,
       ids_period_discipline_class: {
         discipline_id: disciplineIdValue,
@@ -105,6 +105,7 @@ export function AbsencePage(): JSX.Element {
           >
             {disciplines?.map((element: DisciplinesObject) => (
               <option
+              key={element.id}
                 onClick={() => {
                   handleClickDisciplines(element.id);
                 }}
@@ -123,6 +124,7 @@ export function AbsencePage(): JSX.Element {
           >
             {period?.map((element: PeriodType) => (
               <option
+                key={element.id}
                 onClick={() => {
                   handleClickPeriod(element.discipline_id);
                 }}
@@ -141,6 +143,7 @@ export function AbsencePage(): JSX.Element {
           >
             {classDiscipline?.map((element: ClassType) => (
               <option
+                key={element.id}
                 onClick={() => {
                   handleClickClass(element.id);
                 }}
@@ -175,7 +178,7 @@ export function AbsencePage(): JSX.Element {
               <Tbody>
                 {allStudants?.map((element) => {
                   return (
-                    <Tr>
+                    <Tr key={element.id}>
                       <Td>{element.id}</Td>
                       <Td>{element.name}</Td>
                       <Td>

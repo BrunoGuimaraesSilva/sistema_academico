@@ -54,7 +54,6 @@ export function NotesPage(): JSX.Element {
     useForm<StudentsNotes>();
 
   const onSubmit: SubmitHandler<StudentsNotes> = (data) => {
-    console.log(studantsId)
     const arrayToSend: BodyToSaveNotes = {
       students_notes: data,
       students_id: studantsId,
@@ -84,12 +83,6 @@ export function NotesPage(): JSX.Element {
       .catch(() => {});
   }
 
-  async function handleClickPeriod(id: number): Promise<void> {
-    setPeriodIdValue(id);
-    setButtonVisible(false);
-    verifyValues(id);
-  }
-
   async function verifyValues(id: number) {
     const studentGradeData = await getStudentsNotes(disciplineIdValue, id);
     setValue("first_test", ["0", ...(studentGradeData?.first_test ?? "0")]);
@@ -97,6 +90,13 @@ export function NotesPage(): JSX.Element {
     setValue("first_job",  ["0", ...(studentGradeData?.first_job ?? "0")]);
     setValue("second_job", ["0", ...(studentGradeData?.second_job ?? "0")]);
   }
+
+  async function handleClickPeriod(id: number): Promise<void> {
+    setPeriodIdValue(id);
+    setButtonVisible(false);
+    verifyValues(id);
+  }
+
 
   return (
     <>
@@ -110,6 +110,7 @@ export function NotesPage(): JSX.Element {
           >
             {disciplines?.map((element: DisciplinesObject) => (
               <option
+                key={element.id}
                 onClick={() => {
                   handleClickDisciplines(element.id);
                 }}
@@ -128,8 +129,8 @@ export function NotesPage(): JSX.Element {
           >
             {period?.map((element: PeriodType) => (
               <option
+                key={element.id}
                 onClick={() => {
-                  console.log(element);
                   handleClickPeriod(element.id);
                 }}
                 value={element.id}
@@ -166,7 +167,7 @@ export function NotesPage(): JSX.Element {
               <Tbody>
                 {allStudants?.map((element) => {
                   return (
-                    <Tr>
+                    <Tr key={element.id}>
                       <Td>{element.id}</Td>
                       <Td>{element.name}</Td>
                       <Td>

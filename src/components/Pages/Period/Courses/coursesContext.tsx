@@ -8,30 +8,31 @@ export interface CoursesProviderProps {
     children: JSX.Element;
 }
 
+export interface EmployeeObject {
+  id: number;
+  profile_id: number;
+  name: string;
+  email: string;
+  password: string;
+  telephone: string;
+  cpf: string;
+  address_id: number;
+  status: number;
+  created_at: Date;
+  updated_at: Date;
+  profile: string;
+  cep: string;
+  city: string;
+  state: string;
+  address: string;
+  district: string;
+  number: string;
+}
+
 export interface CoursesContextProps {
     getEmployees(): Promise<EmployeeObject[] | undefined>;
 }
 
-export interface EmployeeObject {
-    id: number;
-    profile_id: number;
-    name: string;
-    email: string;
-    password: string;
-    telephone: string;
-    cpf: string;
-    address_id: number;
-    status: number;
-    created_at: Date;
-    updated_at: Date;
-    profile: string;
-    cep: string;
-    city: string;
-    state: string;
-    address: string;
-    district: string;
-    number: string;
-}
 
 
 export const CoursesContext = createContext({} as CoursesContextProps);

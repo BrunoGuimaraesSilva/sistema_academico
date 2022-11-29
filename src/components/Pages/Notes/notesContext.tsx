@@ -30,7 +30,7 @@ interface PeriodType {
   discipline_name: string;
 }
 
-interface INotesStudents {
+interface NotesStudents {
   first_job: string[];
   first_test: string[];
   second_job: string[];
@@ -42,7 +42,7 @@ export interface NotesContextProps {
   getStudentsNotes(
     disciplineId: number,
     periodId: number
-  ): Promise<INotesStudents| undefined>;
+  ): Promise<NotesStudents| undefined>;
 }
 
 export const NotesContext = createContext({} as NotesContextProps);
@@ -92,7 +92,6 @@ export function NotesProvider({ children }: NotesProviderProps) {
         duration: 5000,
         isClosable: true,
       });
-      console.log('data1', data1, 'data2', data2)
     })).catch(() => {
       toast({
         title: "Sucesso ao Cadastrar",
@@ -107,9 +106,9 @@ export function NotesProvider({ children }: NotesProviderProps) {
   function agroupStudent(
     data: StudentObject[],
     periodId: number
-  ): INotesStudents {
-    let temp = new Array();
-    const notes = new Array();
+  ): NotesStudents {
+    let temp: any[] = [];
+    const notes: any[] = [];
 
     data.map((o) => {
       if (!temp.includes(o.student_id)) {
@@ -127,10 +126,10 @@ export function NotesProvider({ children }: NotesProviderProps) {
     });
     
     temp = [];
-    const first_job: string[] = new Array();
-    const first_test: string[] = new Array();
-    const second_job: string[] = new Array();
-    const second_test: string[] = new Array();
+    const first_job: string[] = [];
+    const first_test: string[] = [];
+    const second_job: string[] = [];
+    const second_test: string[] = [];
 
     notes.map((o) => {
       if (!temp.includes(o.student_id)) {
@@ -144,7 +143,7 @@ export function NotesProvider({ children }: NotesProviderProps) {
       }
     });
 
-    const result: INotesStudents = {
+    const result: NotesStudents = {
       first_job: first_job,
       first_test: first_test,
       second_job: second_job,
@@ -157,7 +156,7 @@ export function NotesProvider({ children }: NotesProviderProps) {
   async function getStudentsNotes(
     disciplineId: number,
     periodId: number
-  ): Promise<INotesStudents| undefined> {
+  ): Promise<NotesStudents| undefined> {
     try {
       const res = await axios.get(
         `${urlApi}/studentgrade/discipline/${disciplineId}`,

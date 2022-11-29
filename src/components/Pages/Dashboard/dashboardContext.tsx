@@ -3,15 +3,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { createContext, useState } from "react";
-
 export interface DashboardProviderProps {
   children: JSX.Element;
 }
-
-export interface DashboardContextProps {
-  getStudents(id: number): Promise<GroupByStudents[] | undefined>;
-}
-
 export interface StudentObject {
   id: number;
   first_test: number;
@@ -38,6 +32,12 @@ export interface GroupByStudents {
   name: string;
   element: StudentObject[];
 }
+export interface DashboardContextProps {
+  getStudents(id: number): Promise<GroupByStudents[] | undefined>;
+}
+
+
+
 
 export const DashboardContext = createContext({} as DashboardContextProps);
 
@@ -51,8 +51,8 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
   const toast = useToast();
 
   function agroupStudent(data: StudentObject[]): GroupByStudents[] {
-    const temp = new Array();
-    const result = new Array();
+    const temp: any[] = [];
+    const result: any[] = [];
 
     data.map((o) => {
       if (!temp.includes(o.student_id)) {

@@ -61,6 +61,7 @@ export function DashboardPage(): JSX.Element {
         >
           {disciplines?.map((element: DisciplinesObject) => (
             <option
+              key={element.id}
               onClick={() => {
                 handleClick(element.id);
               }}
@@ -82,7 +83,7 @@ export function DashboardPage(): JSX.Element {
             <Tbody>
               {allStudentGrade?.map((data) => {
                 return (
-                  <Tr>
+                  <Tr key={data.id}>
                     <Td>{data.student_id}</Td>
                     <Td>{data.name}</Td>
                     <Td width={"70%"}>
@@ -108,7 +109,7 @@ export function DashboardPage(): JSX.Element {
                                 </Thead>
                                 <Tbody>
                                   {data.element.map((newData) => (
-                                    <Tr>
+                                  <Tr key={newData.id}>
                                       <Td>{newData.period_id}</Td>
                                       <Td>{newData.first_test}</Td>
                                       <Td>{newData.second_test}</Td>

@@ -1,14 +1,16 @@
-export interface bodyToSaveAbsence {
-  students_id: number[];
-  ids_period_discipline_class: {
-      discipline_id: number;
-      period_id: number;
-      class_id: number;
-      justification: string;
-  };
+interface IdsPeriodDiscipline {
+  discipline_id: number;
+  period_id: number;
+  class_id: number;
+  justification: string;
 }
 
-export function converterToSaveAbsence(data: bodyToSaveAbsence) {
+export interface BodyToSaveAbsence {
+  students_id: number[];
+  ids_period_discipline_class: IdsPeriodDiscipline;
+}
+
+export function converterToSaveAbsence(data: BodyToSaveAbsence) {
   const array = {
     students_id: data.students_id,
     ids_period_discipline_class: {
@@ -22,7 +24,7 @@ export function converterToSaveAbsence(data: bodyToSaveAbsence) {
   return array;
 }
 
-export function converterToEditAbsence(data: bodyToSaveAbsence) {
+export function converterToEditAbsence(data: BodyToSaveAbsence) {
   const array = {
     absence: {
       ...data.students_id
