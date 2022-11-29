@@ -32,7 +32,7 @@ export function AbsencePage(): JSX.Element {
   const { saveAbsenceStudents, getPeriod, getClass } =
     useContext(AbsenceContext);
   const { allStudants, getAllStudants } = useContext(StudantContext);
-  const [disciplines, setDisciplines] = useState();
+  const [disciplines, setDisciplines] = useState<[DisciplinesObject]>();
   const [period, setPeriod] = useState<PeriodType[]>();
   const [classDiscipline, setClassDiscipline] = useState<ClassType[]>();
   const [periodInputVisible, setPeriodInputVisible] = useState<boolean>(true);
@@ -47,7 +47,6 @@ export function AbsencePage(): JSX.Element {
   console.log(watch());
 
   const onSubmit: SubmitHandler<number[]> = (data) => {
-
     const arrayToSend: bodyToSaveAbsence = {
       students_id: data,
       ids_period_discipline_class: {
@@ -62,7 +61,9 @@ export function AbsencePage(): JSX.Element {
 
   useEffect(() => {
     getAllStudants();
-    const item: any[] = JSON.parse(localStorage.getItem("disciplines"));
+    const item: [DisciplinesObject] = JSON.parse(
+      localStorage.getItem("disciplines") ?? ""
+    );
     setDisciplines(item);
   }, []);
 

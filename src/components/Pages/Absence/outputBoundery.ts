@@ -21,3 +21,13 @@ export function converterToSaveAbsence(data: bodyToSaveAbsence) {
 
   return array;
 }
+
+export function converterToEditAbsence(data: bodyToSaveAbsence) {
+  const array = {
+    absence: {
+      ...data.students_id
+    }
+}
+  return array;
+}
+

@@ -16,52 +16,53 @@ import {
   Td,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { ClassType, PeriodType } from "../Absence";
+import {
+  Controller,
+  SubmitHandler, useForm
+} from "react-hook-form";
+import { PeriodType } from "../Absence";
 import { NotesContext } from "./notesContext";
-import { bodyToSaveNotes } from "./outputBoundery";
+import { BodyToSaveNotes } from "./outputBoundery";
 
 interface DisciplinesObject {
   discipline_name: string;
   id: number;
 }
-
-interface StudentsId {
-    first_test: string[];
-    second_test: string[];
-    first_job: string[];
-    second_job: string[];
-  }
+interface StudentsNotes {
+  first_test: string[];
+  second_test: string[];
+  first_job: string[];
+  second_job: string[];
+}
 
 export function NotesPage(): JSX.Element {
-  const { saveNotesStudents, getPeriod } = useContext(NotesContext);
+  const { saveNotesStudents, getPeriod, getStudentsNotes } =
+    useContext(NotesContext);
   const { allStudants, getAllStudants } = useContext(StudantContext);
-  const [disciplines, setDisciplines] = useState<any[]>();
+  const [disciplines, setDisciplines] = useState<DisciplinesObject[]>();
   const [period, setPeriod] = useState<PeriodType[]>();
   const [periodInputVisible, setPeriodInputVisible] = useState<boolean>(true);
   const [buttonVisible, setButtonVisible] = useState<boolean>(true);
-
   const [disciplineIdValue, setDisciplineIdValue] = useState<number>(0);
   const [periodIdValue, setPeriodIdValue] = useState<number>(0);
+  const [studantsId, setStudantsId] = useState<number[]>([1,2]);
 
-  const {
-    register,
-    control,
-    handleSubmit,
-  } = useForm<StudentsId>();
+  const { control, handleSubmit, setValue } =
+    useForm<StudentsNotes>();
 
-  const onSubmit: SubmitHandler<StudentsId> = (data) => {
-    
-    const arrayToSend: bodyToSaveNotes = {
-      students_id: data,
+  const onSubmit: SubmitHandler<StudentsNotes> = (data) => {
+    console.log(studantsId)
+    const arrayToSend: BodyToSaveNotes = {
+      students_notes: data,
+      students_id: studantsId,
       ids_period_discipline: {
         discipline_id: disciplineIdValue,
         period_id: periodIdValue,
         note: "",
-      },      
+      },
     };
     saveNotesStudents(arrayToSend);
   };
@@ -69,30 +70,38 @@ export function NotesPage(): JSX.Element {
   useEffect(() => {
     getAllStudants();
     const item: [DisciplinesObject] = JSON.parse(
-        localStorage.getItem("disciplines") ?? ""
-      );   
-       setDisciplines(item);
+      localStorage.getItem("disciplines") ?? ""
+    );
+    setDisciplines(item);
   }, []);
 
   async function handleClickDisciplines(id: number): Promise<void> {
     setDisciplineIdValue(id);
     getPeriod(id)
       .then((responseValue): void => {
-          setPeriod(responseValue),
-          setPeriodInputVisible(false)
+        setPeriod(responseValue), setPeriodInputVisible(false);
       })
-      .catch((error) => {});
+      .catch(() => {});
   }
 
   async function handleClickPeriod(id: number): Promise<void> {
     setPeriodIdValue(id);
     setButtonVisible(false);
+    verifyValues(id);
+  }
+
+  async function verifyValues(id: number) {
+    const studentGradeData = await getStudentsNotes(disciplineIdValue, id);
+    setValue("first_test", ["0", ...(studentGradeData?.first_test ?? "0")]);
+    setValue("second_test",["0", ...(studentGradeData?.second_test ?? "0")]);
+    setValue("first_job",  ["0", ...(studentGradeData?.first_job ?? "0")]);
+    setValue("second_job", ["0", ...(studentGradeData?.second_job ?? "0")]);
   }
 
   return (
     <>
       <Box mt={10} pl={"5%"} pr={"5%"}>
-        <SimpleGrid columns={3} spacing={5}>
+        <SimpleGrid columns={2} spacing={5}>
           <Select
             ml="auto"
             mr="0"
@@ -120,7 +129,7 @@ export function NotesPage(): JSX.Element {
             {period?.map((element: PeriodType) => (
               <option
                 onClick={() => {
-                    console.log(element)
+                  console.log(element);
                   handleClickPeriod(element.id);
                 }}
                 value={element.id}
@@ -161,76 +170,108 @@ export function NotesPage(): JSX.Element {
                       <Td>{element.id}</Td>
                       <Td>{element.name}</Td>
                       <Td>
-                        <NumberInput
-                          w={150}
-                          allowMouseWheel
-                          step={1}
-                          defaultValue={0}
-                          min={0}
-                          max={10}
-                        >
-                          <NumberInputField
-                            {...register(`first_test.${element.id}` as const)}
-                          />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Controller
+                          name={`first_test.${element.id}`}
+                          control={control}
+                          render={({ field: { ref, ...restField } }) => (
+                            <NumberInput
+                              w={150}
+                              allowMouseWheel
+                              step={1}
+                              defaultValue={0}
+                              min={0}
+                              max={10}
+                              {...restField}
+                            >
+                              <NumberInputField
+                                ref={ref}
+                                name={restField.name}
+                              />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          )}
+                        />
                       </Td>
                       <Td>
-                        <NumberInput
-                          w={150}
-                          allowMouseWheel
-                          step={1}
-                          defaultValue={0}
-                          min={0}
-                          max={10}
-                        >
-                          <NumberInputField
-                            {...register(`second_test.${element.id}` as const)}
-                          />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Controller
+                          name={`second_test.${element.id}`}
+                          control={control}
+                          render={({ field: { ref, ...restField } }) => (
+                            <NumberInput
+                              w={150}
+                              allowMouseWheel
+                              step={1}
+                              defaultValue={0}
+                              min={0}
+                              max={10}
+                              {...restField}
+                            >
+                              <NumberInputField
+                                ref={ref}
+                                name={restField.name}
+                              />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          )}
+                        />
                       </Td>
                       <Td>
-                        <NumberInput
-                          w={150}
-                          allowMouseWheel
-                          step={1}
-                          defaultValue={0}
-                          min={0}
-                          max={10}
-                        >
-                          <NumberInputField
-                            {...register(`first_job.${element.id}` as const)}
-                          />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Controller
+                          name={`first_job.${element.id}`}
+                          control={control}
+                          render={({ field: { ref, ...restField } }) => (
+                            <NumberInput
+                              w={150}
+                              allowMouseWheel
+                              step={1}
+                              defaultValue={0}
+                              min={0}
+                              max={10}
+                              {...restField}
+                            >
+                              <NumberInputField
+                                ref={ref}
+                                name={restField.name}
+                              />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          )}
+                        />
                       </Td>
                       <Td>
-                        <NumberInput
-                          w={150}
-                          allowMouseWheel
-                          step={1}
-                          defaultValue={0}
-                          min={0}
-                          max={10}
-                        >
-                          <NumberInputField
-                            {...register(`second_job.${element.id}` as const)}
-                          />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
+                        <Controller
+                          name={`second_job.${element.id}`}
+                          control={control}
+                          render={({ field: { ref, ...restField } }) => (
+                            <NumberInput
+                              w={150}
+                              allowMouseWheel
+                              step={1}
+                              defaultValue={0}
+                              min={0}
+                              max={10}
+                              {...restField}
+                            >
+                              <NumberInputField
+                                ref={ref}
+                                name={restField.name}
+                              />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          )}
+                        />
                       </Td>
                     </Tr>
                   );

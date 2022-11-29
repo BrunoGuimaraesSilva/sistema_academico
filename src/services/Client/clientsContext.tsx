@@ -17,7 +17,6 @@ export function ClientProvider({ children }: InterProviderProps) {
   const router = useRouter();
   const [userData, setUserData] = useState<UserData>();
 
-
   async function login(login: string, password: string): Promise<void> {
     axios
       .post(`${urlApi}/auth/login`, {
@@ -27,9 +26,7 @@ export function ClientProvider({ children }: InterProviderProps) {
       .then(({ data }): void => {
 
         if (typeof window !== "undefined") {
-
           localStorage.setItem('disciplines', JSON.stringify(data.disciplines))
-          
         }
           
 

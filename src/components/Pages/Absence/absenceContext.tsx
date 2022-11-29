@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import { createContext } from "react";
-import { bodyToSaveAbsence, converterToSaveAbsence } from "./outputBoundery";
+import { bodyToSaveAbsence, converterToEditAbsence } from "./outputBoundery";
 
 export interface AbsenceProviderProps {
   children: JSX.Element;
@@ -49,60 +49,77 @@ export function AbsenceProvider({ children }: AbsenceProviderProps) {
   const urlApi = "https://site-lvhq52xtpa-uc.a.run.app/api";
   const cookies = parseCookies();
   const token = cookies.token;
-  const toast = useToast()
+  const toast = useToast();
   const config = {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
 
-  async function getPeriod(disciplineId: number): Promise<PeriodType[] | undefined> {
+  async function getPeriod(
+    disciplineId: number
+  ): Promise<PeriodType[] | undefined> {
     try {
-      const res = await axios.get(`${urlApi}/period/discipline/${disciplineId}` , config)
-      const responseData: PeriodType[] = res.data
-      return responseData
+      const res = await axios.get(
+        `${urlApi}/period/discipline/${disciplineId}`,
+        config
+      );
+      const responseData: PeriodType[] = res.data;
+      return responseData;
     } catch (error) {
       toast({
-        title: 'Erro ao buscar os periodos',
-        status: 'error',
+        title: "Erro ao buscar os periodos",
+        status: "error",
         duration: 5000,
         isClosable: true,
-      })
+      });
     }
   }
 
-  async function getClass(disciplineId: number): Promise<ClassType[] | undefined> {
+  async function getClass(
+    disciplineId: number
+  ): Promise<ClassType[] | undefined> {
     try {
-      const res = await axios.get(`${urlApi}/class/discipline/${disciplineId}`, config)
-      const responseData: ClassType[] = res.data
-      return responseData
+      const res = await axios.get(
+        `${urlApi}/class/discipline/${disciplineId}`,
+        config
+      );
+      const responseData: ClassType[] = res.data;
+      return responseData;
     } catch (error) {
       toast({
-        title: 'Erro ao buscar os aulas',
-        status: 'error',
+        title: "Erro ao buscar os aulas",
+        status: "error",
         duration: 5000,
         isClosable: true,
-      })
+      });
     }
   }
 
   async function saveAbsenceStudents(body: bodyToSaveAbsence): Promise<void> {
-    try {
-      const value = converterToSaveAbsence(body);
-      const res = axios.post(`${urlApi}/studentabsence`, value, config).then(() => {
+    const value = converterToEditAbsence(body);
+    axios
+      .put(
+        `${urlApi}/studentabsence/${body.ids_period_discipline_class.discipline_id}/${body.ids_period_discipline_class.period_id}`,
+        value,
+        config
+      )
+      .then(() => {
         toast({
-          title: 'Sucesso ao Cadastrar',
-          status: 'success',
+          title: "Sucesso ao Cadastrar",
+          status: "success",
           duration: 5000,
           isClosable: true,
-        })
-      });
-    } catch (error) {
-      toast({
-        title: 'Erro ao salvar',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        });
       })
-    }
+      .catch((error) => {
+        toast({
+          title: "Erro ao salvar",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   }
 
   return (
@@ -110,7 +127,7 @@ export function AbsenceProvider({ children }: AbsenceProviderProps) {
       value={{
         saveAbsenceStudents,
         getPeriod,
-        getClass
+        getClass,
       }}
     >
       {children}

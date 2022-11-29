@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalOverlay, Flex } from "@chakra-ui/react";
+import { Modal, ModalContent, ModalOverlay, Box } from "@chakra-ui/react";
 import loadingLogo from "../assets/loading.json";
 import { useContext } from "react";
 import { LoadingContext } from "../services";
@@ -17,9 +17,9 @@ export default function Loading(): JSX.Element {
           boxShadow={0}
           bg={"rgba(0,0,0,0)"}
         >
-          <Flex height={"80%"} width={"80%"}>
+          <Box height={"150%"} width={"150%"}>
             <Lottie animationData={loadingLogo} />
-          </Flex>
+          </Box>
         </ModalContent>
       </Modal>
     </>

@@ -60,8 +60,11 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
         const object = data.filter((t) => t.student_id === o.student_id);
         
         object.map((data, index) => {
-          const approve = data.first_job + data.first_test + data.second_job + data.second_test / 4 >= 6;
-          object[index].studentApprove = approve;
+          const first = data.first_job + data.first_test
+          const second = data.second_job + data.second_test;
+          const approveResult =(first + second) / 2 >= 7
+          console.log(approveResult)
+          object[index].studentApprove = approveResult;
         })
 
         result.push({
