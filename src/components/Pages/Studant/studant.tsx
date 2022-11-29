@@ -90,7 +90,7 @@ export function StudantPage(): JSX.Element {
                             Ações
                           </MenuButton>
                           <MenuList>
-                            <MenuItem onClick={() => { onOpen(), setStudant(element), console.log(element) }}>
+                            <MenuItem onClick={() => { onOpen(), setStudant(element)}}>
                               Resumo
                             </MenuItem>
                             <MenuItem onClick={() => { router.push(`estudante/${element.id}?page=pessoais`) }}>

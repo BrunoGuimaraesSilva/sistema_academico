@@ -38,7 +38,6 @@ export default function ListEmployee() {
 
     function getData() {
         getEmployeeData(idUser).then((data) => {
-            console.log(data)
             //Endereco
             setValue("cepEmployee", data?.cep ?? "");
             setValue("stateEmployee", data?.state ?? "");

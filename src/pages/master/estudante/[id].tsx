@@ -50,8 +50,6 @@ export default function ListagemEstudantes() {
     function getData() {
         if (page == 'pessoais') {
             getStudantPersonData(idUser).then((data) => {
-
-                console.log(data)
                 //Endereco
                 setValue("cepStudant", data?.cep ?? "");
                 setValue("stateStudant", data?.state ?? "");
@@ -86,7 +84,6 @@ export default function ListagemEstudantes() {
 
         if (page == 'financeiro') {
             getStudantFinancialData(idUser).then((data) => {
-                console.log(data)
                 //Endereco
                 setValue("cepFinancial", data?.cep ?? "");
                 setValue("stateFinancial", data?.state ?? "");

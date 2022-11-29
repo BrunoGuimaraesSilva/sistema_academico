@@ -91,7 +91,6 @@ export function PersonalDataFragment() {
                 }}
                 startDate={moment('01/01/2000').toDate()}
                 onChange={(data) => {
-                  console.log(data)
                 }}
               />
             </InputGroup>

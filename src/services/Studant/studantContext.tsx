@@ -104,7 +104,6 @@ export function StudantProvider({ children }: StudantProviderProps) {
 
     try {
       const dataToSend = converterToCreateUser(data)
-      console.log(dataToSend)
       const res = axios.post(`${urlApi}/student`, dataToSend, config).then(() => {
         toast({
           title: 'Sucesso ao Cadastrar',

@@ -39,7 +39,6 @@ export function DashboardPage(): JSX.Element {
   async function handleClick(id: number) {
     const studentGradeData = await getStudents(id);
     setStudentGrade(studentGradeData);
-    console.log(studentGradeData);
   }
 
   const CircleIcon = (props: IconProps) => (

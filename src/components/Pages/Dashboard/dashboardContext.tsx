@@ -63,7 +63,6 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
           const first = data.first_job + data.first_test
           const second = data.second_job + data.second_test;
           const approveResult =(first + second) / 2 >= 7
-          console.log(approveResult)
           object[index].studentApprove = approveResult;
         })
 

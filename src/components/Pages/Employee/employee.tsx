@@ -77,7 +77,7 @@ export function EmployeePage(): JSX.Element {
                       <Td>
                         <Wrap>
                           <WrapItem>
-                            <GButton onClick={() => { onOpen(), setStudant(element), console.log(element) }}>Resumo</GButton>
+                            <GButton onClick={() => { onOpen(), setStudant(element)}}>Resumo</GButton>
                           </WrapItem>
                           <WrapItem>
                             <GButton onClick={() => { router.push(`funcionario/${element.id}`) }}>Editar Dados</GButton>

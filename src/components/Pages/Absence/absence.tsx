@@ -44,7 +44,6 @@ export function AbsencePage(): JSX.Element {
   const [classIdValue, setClassIdValue] = useState<number>(0);
 
   const { register, handleSubmit, watch } = useForm<number[]>();
-  console.log(watch());
 
   const onSubmit: SubmitHandler<number[]> = (data) => {
     const arrayToSend: BodyToSaveAbsence = {
