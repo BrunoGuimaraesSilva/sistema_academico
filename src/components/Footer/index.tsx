@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { ReactNode } from "react";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 
 export function Footer(): JSX.Element {
   return (

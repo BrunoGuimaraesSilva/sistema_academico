@@ -26,10 +26,6 @@ export function EmployeeProvider({ children }: EmployeeProviderProps) {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-
-
-
-
   async function getAllProfiles(): Promise<void> {
     if (!profile) {
       try {
@@ -99,7 +95,7 @@ export function EmployeeProvider({ children }: EmployeeProviderProps) {
 
   async function activateEmployee(id: number | undefined): Promise<void> {
     try {
-      await axios.post(`${urlApi}/studentactivate/${id}`, config).then(() => {
+      await axios.post(`${urlApi}/employeeactivate/${id}`,[], config).then(() => {
         toast({
           title: 'Sucesso ao ativar',
           status: 'success',

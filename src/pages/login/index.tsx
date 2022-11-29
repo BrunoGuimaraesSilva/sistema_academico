@@ -20,8 +20,8 @@ import {
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 
-import logo from "../../assets/logo.svg";
-import logo_black from "../../assets/logo_black.svg";
+import logo from "../../assets/logo.png";
+import logo_black from "../../assets/logo.png";
 import { BsEye, BsEyeSlash, BsPerson } from "react-icons/bs";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 import { useContext, useState } from "react";
